@@ -210,8 +210,8 @@
       
         
           <span itemprop="articleBody"><p>Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。</p>
-<p>###安装Supervisor<br>使用<code>pip install supervisor</code>，如果提示Permission Denied，则使用<code>sudo pip install supervisor</code>。如果需要安装的linux环境无法连接外网，直接离线安装，参考：<a href="http://supervisord.org/installing.html" target="_blank" rel="external">http://supervisord.org/installing.html</a></p>
-<p>###创建Supervisor默认配置文件<br>一旦Supervisor安装成功后,可以使用</p>
+<p>###安装Supervisor###<br>使用<code>pip install supervisor</code>，如果提示Permission Denied，则使用<code>sudo pip install supervisor</code>。如果需要安装的linux环境无法连接外网，直接离线安装，参考：<a href="http://supervisord.org/installing.html" target="_blank" rel="external">http://supervisord.org/installing.html</a></p>
+<p>###创建Supervisor默认配置文件###<br>一旦Supervisor安装成功后,可以使用</p>
 <pre><code>sudo <span class="built_in">echo</span>_supervisord_conf &gt; /etc/supervisord.conf
 </code></pre><p>来生成默认的配置文件。文件中大部分内容都是用分号(;)注释掉的，配置文件的格式是ini格式。当然你也可以直接使用</p>
 <pre><code>sudo <span class="keyword">vim</span> /etc/supervisord.<span class="keyword">conf</span>
@@ -239,8 +239,8 @@ files = supervisor/<span class="keyword">conf</span>.<span class="keyword">d</sp
 <li>所有的Supervisor管理的进程配置文件位于/etc/supervisor/conf.d下，并且以ini作为文件后缀，方便管理Supervisor配置的进程。如果不想要让Supervisor管理某个进程只需要使用<code>mv</code>命令将该配置移动其他目录或者修改为.bak结尾的文件即可。</li>
 </ul>
 <p>如果要配置Supervisor管理的进程只需要在/etc/supervisor/conf.d目录新建ini文件。下面是ini文件的一个示例：</p>
-<p>###启动Supervisor<br>使用<code>sudo supervisord -c /etc/supervisord.conf</code>来启动Supervisor守护进程</p>
-<p>###使用supervisorctl来管理进程<br><strong>查看supervisor管理的进程状态</strong></p>
+<p>###启动Supervisor###<br>使用<code>sudo supervisord -c /etc/supervisord.conf</code>来启动Supervisor守护进程</p>
+<p>###使用supervisorctl来管理进程###<br><strong>查看supervisor管理的进程状态</strong></p>
 <pre><code>sudo supervisorctl <span class="keyword">status</span>
 </code></pre><p><strong>更新supervisoir管理的进程</strong></p>
 <p>如果在/etc/supervisor/conf.d新增了新的进程配置ini文件，可以使用如下命令来添加新的进程。</p>
