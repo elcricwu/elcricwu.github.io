@@ -230,40 +230,33 @@
 </code></pre><p>来生成默认的配置文件。文件中大部分内容都是用分号(;)注释掉的，配置文件的格式是ini格式。当然你也可以直接使用</p>
 <pre><code>sudo <span class="keyword">vim</span> /etc/supervisord.<span class="keyword">conf</span>
 </code></pre><p>来直接创建supervisord.conf文件。下面是一个示例的配置文件：</p>
-<pre><code>[unix_http_server]
-<span class="keyword">file</span>=/<span class="keyword">var</span>/tmp/supervisor.sock   ; (the path to the socket <span class="keyword">file</span>)
-chmod=0700                       ; socket <span class="keyword">file</span> mode (default 0700)
-
-[supervisord]
-logfile=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor/supervisord.<span class="keyword">log</span> ; (main <span class="keyword">log</span> <span class="keyword">file</span>;default <span class="label">$CWD</span>/supervisord.<span class="keyword">log</span>)
-pidfile=/<span class="keyword">var</span>/<span class="keyword">run</span>/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
-childlogdir=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor            ; ('AUTO' child <span class="keyword">log</span> <span class="keyword">dir</span>, default <span class="label">$TEMP</span>)
-
-[rpcinterface:supervisor]
-supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
-
-[supervisorctl]
-serverurl=unix:<span class="comment">///var/tmp/supervisor.sock ; use a unix:// URL  for a unix socket</span>
-
-[<span class="keyword">include</span>]
-files = supervisor/<span class="keyword">conf</span>.<span class="keyword">d</span><span class="comment">/*.ini</span>
-</code></pre><p>注意：在上述这个配置文件中把Supervisor本身的配置和Supervisor管理的进程的配置分开来了，秘密就在<code>[inlcude]</code>这段配置下。最好在使用Supervisor来配置受管理的进程时，使用这种方式。这个方式有两个好处：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[unix_http_server]</span><br><span class="line">; (the path to the socket <span class="keyword">file</span>)</span><br><span class="line"><span class="keyword">file</span>=/<span class="keyword">var</span>/tmp/supervisor.sock </span><br><span class="line">; socket <span class="keyword">file</span> mode (default 0700)</span><br><span class="line">chmod=0700</span><br><span class="line">	</span><br><span class="line">[supervisord]</span><br><span class="line">; (main <span class="keyword">log</span> <span class="keyword">file</span>;default <span class="label">$CWD</span>/supervisord.<span class="keyword">log</span>)</span><br><span class="line">logfile=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor/supervisord.<span class="keyword">log</span> </span><br><span class="line">; (supervisord pidfile;default supervisord.pid)</span><br><span class="line">pidfile=/<span class="keyword">var</span>/<span class="keyword">run</span>/supervisord.pid 	</span><br><span class="line">; ('AUTO' child <span class="keyword">log</span> <span class="keyword">dir</span>, default <span class="label">$TEMP</span>)</span><br><span class="line">childlogdir=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor            	</span><br><span class="line">[rpcinterface:supervisor]</span><br><span class="line">supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface</span><br><span class="line">	</span><br><span class="line">[supervisorctl]</span><br><span class="line">; <span class="keyword">use</span> a unix:<span class="comment">// URL  for a unix socket</span></span><br><span class="line">serverurl=unix:<span class="comment">///var/tmp/supervisor.sock  	</span></span><br><span class="line">[<span class="keyword">include</span>]</span><br><span class="line">files = supervisor/<span class="keyword">conf</span>.<span class="keyword">d</span><span class="comment">/*.ini</span></span><br></pre></td></tr></table></figure>
+<p>注意：在上述这个配置文件中把Supervisor本身的配置和Supervisor管理的Program的配置分开来了，秘密就在<code>[inlcude]</code>这段配置下。最好在使用Supervisor来配置受管理的Program时，使用这种方式。这个方式有两个好处：</p>
 <ul>
 <li>将Supervisor本身的配置和受管理的进程配置分离开来，在配置上更清晰了</li>
 <li>所有的Supervisor管理的进程配置文件位于/etc/supervisor/conf.d下，并且以ini作为文件后缀，方便管理Supervisor配置的进程。如果不想要让Supervisor管理某个进程只需要使用<code>mv</code>命令将该配置移动其他目录或者修改为.bak结尾的文件即可。</li>
 </ul>
-<p>如果要配置Supervisor管理的进程只需要在/etc/supervisor/conf.d目录新建ini文件。下面是ini文件的一个示例：</p>
-<p></p><h2>启动Supervisor</h2><br>使用<code>sudo supervisord -c /etc/supervisord.conf</code>来启动Supervisor守护进程<p></p>
-<h2 id="使用supervisorctl来管理进程">使用supervisorctl来管理进程</h2><p><strong> 查看supervisor管理的进程状态 </strong></p>
+<p>如果要配置Supervisor管理的进程只需要在/etc/supervisor/conf.d目录新建该程序对应的ini文件。下面是ini文件的一个示例：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[program:flumelog]</span> </span><br><span class="line"><span class="comment">; commond填写需要Supervisor启动并管理的Program的命令</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/share/flume/bin/flume-ng agent -n log -c /usr/share/flume/conf -f /usr/share/flume/conf/log.properties</span></span></span><br><span class="line"><span class="comment">; directory</span></span><br><span class="line"><span class="setting">directory=<span class="value">/usr/share/flume/</span></span></span><br><span class="line"><span class="comment">; user设置启动该Program的用户</span></span><br><span class="line"><span class="setting">user=<span class="value">app</span></span></span><br><span class="line"><span class="comment">; numprocs设置启动几个进程</span></span><br><span class="line"><span class="setting">numprocs=<span class="value"><span class="number">1</span></span></span></span><br><span class="line"><span class="comment">; stdout_logfile用来设置stdout的日志文件地址</span></span><br><span class="line"><span class="setting">stdout_logfile=<span class="value">/data/log/flume/flumelog.log</span></span></span><br><span class="line"><span class="comment">; stderr_logfile用来设置stderr（错误）的日志文件地址</span></span><br><span class="line"><span class="setting">stderr_logfile=<span class="value">/data/log/flume/flumelog.log</span></span></span><br><span class="line"><span class="comment">; autostart设置是否自动启动</span></span><br><span class="line"><span class="setting">autostart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="comment">; autorestart设置当Program意外退出后自动重启</span></span><br><span class="line"><span class="setting">autorestart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="comment">; </span></span><br><span class="line"><span class="setting">startsecs=<span class="value"><span class="number">10</span></span></span></span><br><span class="line"><span class="comment">; startretries设置启动的重试次数</span></span><br><span class="line"><span class="setting">startretries=<span class="value"><span class="number">10</span></span></span></span><br><span class="line"><span class="comment">; stopwaitsecs设置Program停止等待的秒数</span></span><br><span class="line"><span class="setting">stopwaitsecs = <span class="value"><span class="number">600</span></span></span></span><br><span class="line"><span class="comment">; </span></span><br><span class="line"><span class="setting">killasgroup=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="comment">; priority设置程序的优先级</span></span><br><span class="line"><span class="setting">priority=<span class="value"><span class="number">999</span></span></span></span><br><span class="line"><span class="comment">; logfile_maxbytes设置日志文件大小</span></span><br><span class="line"><span class="setting">logfile_maxbytes=<span class="value"><span class="number">20</span>MB</span></span></span><br><span class="line"><span class="comment">; logfile_backups设置</span></span><br><span class="line"><span class="setting">logfile_backups=<span class="value"><span class="number">20</span></span></span></span><br><span class="line"><span class="comment">; environment设置启动该program的环境变量</span></span><br><span class="line"><span class="setting">environment=<span class="value">HOME=<span class="string">"/home/app"</span>,USER=<span class="string">"app"</span>,JAVA_HOME=<span class="string">"/usr/java/default"</span></span></span></span><br></pre></td></tr></table></figure>
+<h2 id="启动Supervisor">启动Supervisor</h2><p>使用<code>sudo supervisord -c /etc/supervisord.conf</code>来启动Supervisor守护进程</p>
+<h2 id="使用supervisorctl来管理进程">使用supervisorctl来管理进程</h2><p><strong>查看supervisor管理的进程状态</strong> </p>
 <pre><code>sudo supervisorctl <span class="keyword">status</span>
-</code></pre><p><strong> 更新supervisoir管理的进程 </strong></p>
+</code></pre><p><strong>更新supervisoir管理的进程</strong></p>
 <p>如果在/etc/supervisor/conf.d新增了新的进程配置ini文件，可以使用如下命令来添加新的进程。</p>
 <pre><code><span class="title">sudo</span> supervisorctl update
-</code></pre><p><strong> 更新Supervisor配置 </strong></p>
+</code></pre><p><strong>更新Supervisor配置</strong></p>
 <p>可以使用</p>
 <pre><code><span class="title">sudo</span> supervisorctl reload
-</code></pre><p>来更新</p>
-<p><strong> 重启，启动，停止进程 </strong></p>
+</code></pre><p>来更新supervisor的配置。注意：使用该命令会导致受supervisor管理的进程都进行重启。</p>
+<p><strong>重启，启动，停止进程</strong></p>
+<pre><code>sudo supervisorctl restart flumelog
+sudo supervisorctl <span class="built_in">start</span> flumelog
+sudo supervisorctl <span class="built_in">stop</span> flumelog
+</code></pre><p>其中，flumelog对应在上述program配置中的名称，可以通过<code>sudo supervisorctl status</code>来查看program的名称。</p>
+<h2 id="问题和诊断">问题和诊断</h2><ol>
+<li>如果BACKOFF Exited too quickly (process log may have details)</li>
+</ol>
+<h2 id="参考">参考</h2><p><a href="http://feilong.me/2011/03/monitor-processes-with-supervisord" target="_blank" rel="external">http://feilong.me/2011/03/monitor-processes-with-supervisord</a></p>
 </span>
         
       
