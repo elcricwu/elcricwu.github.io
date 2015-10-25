@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -35,15 +35,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Think Different">
-<meta property="og:url" content="http://elcricwu.github.io/index.html">
+<meta name="description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 
+主要使用了python原生模块datime中的datetime, timedelta，以及time模块。
+1.timestamp转datetimetimestamp(毫秒数)转datetime:
+1234567def date_from_t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python之日期函数处理">
+<meta property="og:url" content="http://elcricwu.github.io/2015/10/25/python-date-processing/index.html">
 <meta property="og:site_name" content="Think Different">
-<meta property="og:description">
+<meta property="og:description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 
+主要使用了python原生模块datime中的datetime, timedelta，以及time模块。
+1.timestamp转datetimetimestamp(毫秒数)转datetime:
+1234567def date_from_t">
+<meta property="og:updated_time" content="2015-10-25T13:44:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Think Different">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Python之日期函数处理">
+<meta name="twitter:description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 
+主要使用了python原生模块datime中的datetime, timedelta，以及time模块。
+1.timestamp转datetimetimestamp(毫秒数)转datetime:
+1234567def date_from_t">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -53,7 +63,7 @@
   };
 </script>
 
-  <title> Think Different </title>
+  <title> Python之日期函数处理 | Think Different </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -71,9 +81,7 @@
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -157,9 +165,9 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -170,9 +178,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/10/25/python-date-processing/" itemprop="url">
-                Python之日期函数处理
-              </a>
+              Python之日期函数处理
             
           
         </h1>
@@ -222,8 +228,7 @@
       
 
       
-        
-          <span itemprop="articleBody"><p>本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(<code>DateTime</code>和<code>Time</code>）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 </p>
+        <span itemprop="articleBody"><p>本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(<code>DateTime</code>和<code>Time</code>）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 </p>
 <p>主要使用了python原生模块datime中的datetime, timedelta，以及time模块。</p>
 <h1 id="1-timestamp转datetime">1.timestamp转datetime</h1><p>timestamp(毫秒数)转datetime:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_from_timestamp_mills</span><span class="params">(timestamp)</span>:</span></span><br><span class="line">    timestamp_mills = ( timestamp % <span class="number">1000</span> ) * <span class="number">1000</span></span><br><span class="line">    timestamp_seconds = timestamp / <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">    date = datetime.fromtimestamp(timestamp_seconds)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> datetime(date.year, date.month, date.day, date.hour, date.minute, date.second, timestamp_mills)</span><br></pre></td></tr></table></figure>
@@ -244,156 +249,56 @@
 <h1 id="5-使用timedelta来进行日期的增减">5.使用timedelta来进行日期的增减</h1><p>主要使用模块datetime的timedelta模块进行日期的删减，timedelta只支持到最大范围为周的情况。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_add</span><span class="params">(date, weeks=<span class="number">0</span>, days=<span class="number">0</span>, hours=<span class="number">0</span>, minutes=<span class="number">0</span>, seconds=<span class="number">0</span>)</span>:</span></span><br><span class="line">    add_delta = timedelta(days=days, seconds=seconds, minutes=minutes, hours=hours, weeks=weeks)</span><br><span class="line">    <span class="keyword">return</span> date + add_delta</span><br></pre></td></tr></table></figure></p>
 <h1 id="6-其他">6.其他</h1><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line"><span class="type">date</span> = datetime.now()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取日期对应的年份</span></span><br><span class="line"><span class="type">date</span>.<span class="property">year</span></span><br><span class="line"><span class="comment"># 获取日期对应的月份(1-12)</span></span><br><span class="line"><span class="type">date</span>.<span class="property">month</span></span><br><span class="line"><span class="comment"># 获取日期对应的日</span></span><br><span class="line"><span class="type">date</span>.<span class="property">day</span></span><br><span class="line"><span class="comment"># 获取日期对应的小时(0-23)</span></span><br><span class="line"><span class="type">date</span>.hour</span><br><span class="line"><span class="comment"># 获取日期对应的分钟(0-59)</span></span><br><span class="line"><span class="type">date</span>.minute</span><br><span class="line"><span class="comment"># 获取日期对应的秒数(0-59)</span></span><br><span class="line"><span class="type">date</span>.<span class="keyword">second</span></span><br><span class="line"><span class="comment"># 获取日期对应的微秒， 可以通过除以1000来获取毫秒</span></span><br><span class="line"><span class="type">date</span>.microsecond</span><br></pre></td></tr></table></figure>
 </span>
-        
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/22/supervisor-installation-configuration/" rel="next">Supervisor安装与配置</a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-      
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/22/supervisor-installation-configuration/" itemprop="url">
-                Supervisor安装与配置
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-22T00:32:45+08:00" content="2015-08-22">
-            2015-08-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/系统管理/" itemprop="url" rel="index">
-                  <span itemprop="name">系统管理</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/22/supervisor-installation-configuration/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/22/supervisor-installation-configuration/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。  </p>
-<h2 id="安装Supervisor">安装Supervisor</h2><p>使用<code>pip install supervisor</code>，如果提示Permission Denied，则使用<code>sudo pip install supervisor</code>。如果需要安装的linux环境无法连接外网，直接离线安装，参考：<a href="http://supervisord.org/installing.html" target="_blank" rel="external">http://supervisord.org/installing.html</a></p>
-<h2 id="创建Supervisor默认配置文件">创建Supervisor默认配置文件</h2><p>一旦Supervisor安装成功后,可以使用</p>
-<pre><code>sudo <span class="built_in">echo</span>_supervisord_conf &gt; /etc/supervisord.conf
-</code></pre><p>来生成默认的配置文件。文件中大部分内容都是用分号(;)注释掉的，配置文件的格式是ini格式。 </p>
-<p>当然你也可以直接使用</p>
-<pre><code>sudo <span class="keyword">vim</span> /etc/supervisord.<span class="keyword">conf</span>
-</code></pre><p>来直接创建supervisord.conf文件。</p>
-<p>下面是一个示例的配置文件：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[unix_http_server]</span><br><span class="line">; (the path to the socket <span class="keyword">file</span>)</span><br><span class="line"><span class="keyword">file</span>=/<span class="keyword">var</span>/tmp/supervisor.sock </span><br><span class="line">; socket <span class="keyword">file</span> mode (default 0700)</span><br><span class="line">chmod=0700</span><br><span class="line">	</span><br><span class="line">[supervisord]</span><br><span class="line">; (main <span class="keyword">log</span> <span class="keyword">file</span>;default <span class="label">$CWD</span>/supervisord.<span class="keyword">log</span>)</span><br><span class="line">logfile=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor/supervisord.<span class="keyword">log</span> </span><br><span class="line">; (supervisord pidfile;default supervisord.pid)</span><br><span class="line">pidfile=/<span class="keyword">var</span>/<span class="keyword">run</span>/supervisord.pid 	</span><br><span class="line">; ('AUTO' child <span class="keyword">log</span> <span class="keyword">dir</span>, default <span class="label">$TEMP</span>)</span><br><span class="line">childlogdir=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor            	</span><br><span class="line">[rpcinterface:supervisor]</span><br><span class="line">supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface</span><br><span class="line">	</span><br><span class="line">[supervisorctl]</span><br><span class="line">; <span class="keyword">use</span> a unix:<span class="comment">// URL  for a unix socket</span></span><br><span class="line">serverurl=unix:<span class="comment">///var/tmp/supervisor.sock  	</span></span><br><span class="line">[<span class="keyword">include</span>]</span><br><span class="line">files = supervisor/<span class="keyword">conf</span>.<span class="keyword">d</span><span class="comment">/*.ini</span></span><br></pre></td></tr></table></figure>
-<p>注意：在上述这个配置文件中把Supervisor本身的配置和Supervisor管理的Program的配置分开来了，秘密就在<code>[inlcude]</code>这段配置下。最好在使用Supervisor来配置受管理的Program时，使用这种方式。这个方式有两个好处：</p>
-<ul>
-<li>将Supervisor本身的配置和受管理的进程配置分离开来，在配置上更清晰了</li>
-<li>所有的Supervisor管理的进程配置文件位于/etc/supervisor/conf.d下，并且以ini作为文件后缀，方便管理Supervisor配置的进程。如果不想要让Supervisor管理某个进程只需要使用<code>mv</code>命令将该配置移动其他目录或者修改为.bak结尾的文件即可。</li>
-</ul>
-<p>如果新增新的Program，只需要在/etc/supervisor/conf.d目录新建该程序对应的ini文件。下面是ini文件的一个示例：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[program:flumelog]</span> </span><br><span class="line"><span class="comment">; command填写启动命令，例如下面的启动Flume的命令</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/share/flume/bin/flume-ng agent -n log -c /usr/share/flume/conf -f /usr/share/flume/conf/log.properties</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; directory指定启动的目录</span></span><br><span class="line"><span class="setting">directory=<span class="value">/usr/share/flume/</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; user设置启动该Program的用户</span></span><br><span class="line"><span class="setting">user=<span class="value">app</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; numprocs设置启动几个进程</span></span><br><span class="line"><span class="setting">numprocs=<span class="value"><span class="number">1</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; stdout_logfile用来设置stdout的日志文件地址</span></span><br><span class="line"><span class="setting">stdout_logfile=<span class="value">/data/log/flume/flumelog.log</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; stderr_logfile用来设置stderr（错误）的日志文件地址</span></span><br><span class="line"><span class="setting">stderr_logfile=<span class="value">/data/log/flume/flumelog.log</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; autostart设置是否自动启动</span></span><br><span class="line"><span class="setting">autostart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; autorestart设置当Program意外退出后自动重启</span></span><br><span class="line"><span class="setting">autorestart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; startsecs指定启动Program的秒数</span></span><br><span class="line"><span class="setting">startsecs=<span class="value"><span class="number">10</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; startretries设置启动的重试次数</span></span><br><span class="line"><span class="setting">startretries=<span class="value"><span class="number">10</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; stopwaitsecs设置Program停止等待的秒数</span></span><br><span class="line"><span class="setting">stopwaitsecs = <span class="value"><span class="number">600</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; killasgroup杀掉整个进程组，包含启动进程创建的子进程。</span></span><br><span class="line"><span class="setting">killasgroup=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; priority设置程序的优先级</span></span><br><span class="line"><span class="setting">priority=<span class="value"><span class="number">999</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; logfile_maxbytes设置日志文件大小</span></span><br><span class="line"><span class="setting">logfile_maxbytes=<span class="value"><span class="number">20</span>MB</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; logfile_backups设置</span></span><br><span class="line"><span class="setting">logfile_backups=<span class="value"><span class="number">20</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; environment设置启动该Program的环境变量</span></span><br><span class="line"><span class="comment">; Program对应的环境变量。</span></span><br><span class="line"><span class="setting">environment=<span class="value">HOME=<span class="string">"/home/app"</span>,USER=<span class="string">"app"</span>,JAVA_HOME=<span class="string">"/usr/java/default"</span></span></span></span><br></pre></td></tr></table></figure>
-<p>注意：如果Supervisor以root权限启动，那么启动Program的环境变量就是root的对应的环境变量。注意：在某些情况下，由于环境变量设置不合理，导致无法通过Supervisor来启动Program，可以通过设置environment来强制指定启动Program的环境变量来解决。</p>
-<h2 id="启动Supervisor">启动Supervisor</h2><p>使用<code>sudo supervisord -c /etc/supervisord.conf</code>来启动Supervisor守护进程</p>
-<h2 id="使用supervisorctl来管理进程">使用supervisorctl来管理进程</h2><p><strong>查看supervisor管理的进程状态</strong> </p>
-<pre><code>sudo supervisorctl <span class="keyword">status</span>
-</code></pre><p><strong>更新supervisoir管理的进程</strong></p>
-<p>如果在/etc/supervisor/conf.d新增了新的进程配置ini文件，可以使用如下命令来添加新的进程。</p>
-<pre><code><span class="title">sudo</span> supervisorctl update
-</code></pre><p><strong>更新Supervisor配置</strong></p>
-<p>可以使用</p>
-<pre><code><span class="title">sudo</span> supervisorctl reload
-</code></pre><p>来更新supervisor的配置。注意：使用该命令会导致受supervisor管理的进程都进行重启。</p>
-<p><strong>重启，启动，停止进程</strong></p>
-<pre><code>sudo supervisorctl restart flumelog
-sudo supervisorctl <span class="built_in">start</span> flumelog
-sudo supervisorctl <span class="built_in">stop</span> flumelog
-</code></pre><p>其中，flumelog对应在上述Program配置中的名称，可以通过<code>sudo supervisorctl status</code>来查看program的名称。</p>
-<h2 id="问题和诊断">问题和诊断</h2><ol>
-<li><p>如果启动Program的过程中出现BACKOFF Exited too quickly (process log may have details)。</p>
-<p> 可以通过查看在stderr_logfile配置的log文件来分析到底是因为什么原因导致没有成功启动配置的Program。</p>
-</li>
-</ol>
-<h2 id="参考">参考</h2><ol>
-<li>用Supervisord管理Python进程 | @飞龙非龙<br><a href="http://feilong.me/2011/03/monitor-processes-with-supervisord" target="_blank" rel="external">http://feilong.me/2011/03/monitor-processes-with-supervisord</a></li>
-<li>Supervisor Run Program as Non-root<br><a href="http://ju.outofmemory.cn/entry/103009" target="_blank" rel="external">http://ju.outofmemory.cn/entry/103009</a></li>
-</ol>
-</span>
-        
+    <div class="post-spread">
       
     </div>
+  </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
  </div>
 
         
 
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/10/25/python-date-processing/"
+                   data-title="Python之日期函数处理" data-url="http://elcricwu.github.io/2015/10/25/python-date-processing/">
+              </div>
+            
+          </div>
         
       </div>
 
@@ -410,6 +315,15 @@ sudo supervisorctl <span class="built_in">stop</span> flumelog
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
       
 
       <section class="site-overview">
@@ -457,6 +371,17 @@ sudo supervisorctl <span class="built_in">stop</span> flumelog
 
       </section>
 
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-timestamp转datetime"><span class="nav-number">1.</span> <span class="nav-text">1.timestamp转datetime</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-datetime转字符串表示"><span class="nav-number">2.</span> <span class="nav-text">2.datetime转字符串表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-字符串转datetime"><span class="nav-number">3.</span> <span class="nav-text">3.字符串转datetime</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-datetime转timestamp"><span class="nav-number">4.</span> <span class="nav-text">4.datetime转timestamp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-使用timedelta来进行日期的增减"><span class="nav-number">5.</span> <span class="nav-text">5.使用timedelta来进行日期的增减</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-其他"><span class="nav-number">6.</span> <span class="nav-text">6.其他</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
       
 
     </div>
@@ -544,6 +469,165 @@ sudo supervisorctl <span class="built_in">stop</span> flumelog
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
