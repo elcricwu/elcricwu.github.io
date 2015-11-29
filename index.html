@@ -170,6 +170,113 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/29/zookeeper-cluster-installation/" itemprop="url">
+                未命名
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-29T13:38:35+08:00" content="2015-11-29">
+            2015-11-29
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/29/zookeeper-cluster-installation/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/29/zookeeper-cluster-installation/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>date: 2015-11-29 13:19:41<br>title: ‘CentOS下Zookeeper集群安装部署实践’<br>categories: </p>
+<ul>
+<li>zookeeper<br>tags: </li>
+<li>zookeeper</li>
+</ul>
+<hr>
+<p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a></p>
+<h1 id="前提条件">前提条件</h1><ul>
+<li>机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。</li>
+<li>请准备3台装有CentOS的机器</li>
+</ul>
+<h1 id="安装Zookeeper">安装Zookeeper</h1><h3 id="1-_配置CentOS的hosts。">1. 配置CentOS的hosts。</h3><p>例如：3台CentOS主机的ip分别为192.168.1.101，192.168.1.102，192.168.1.103。修改3台主机的<code>/etc/hosts</code>的配置如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.101</span> zk01</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.102</span> zk02</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.103</span> zk03</span><br></pre></td></tr></table></figure>
+<h3 id="2-_解压zookeeper-3-4-6-tar-gz">2. 解压zookeeper-3.4.6.tar.gz</h3><p>在CentOS机器下创建目录<code>/data/applications</code>，将下载下来的压缩包：zookeeper-3.4.6.tar.gz拷贝到刚创建的目录下，使用<code>tar zxvf zookeeper-3.4.6.tar.gz</code>解压到当前目录下。使用<code>ln -s /data/applications/zookeeper-3.4.6 zookeeper</code>来创建软连接。</p>
+<h3 id="3-_配置zookeeper">3. 配置zookeeper</h3><p>将解压出来的zookeeper的conf目录下zoo_sample.cfg文件拷贝zoo.cfg文件。目前已有的配置如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tickTime=<span class="number">2000</span> ＃Zookeeper机器的心跳间隔时间，单位为毫秒数；</span><br><span class="line">initLimit=<span class="number">10</span> ＃Zookeeper的机器初始连接允许的最大时间长度，为tickTime的倍数</span><br><span class="line">syncLimit=<span class="number">5</span> <span class="preprocessor"># Zookeeper的Leader和Follower同步的允许的最大时间长度，为tickTime的倍数</span></span><br><span class="line">dataDir=/data/zookeeper/data <span class="preprocessor"># dataDir存储Zookeeper的内存的snapshot，不要使用/tmp目录</span></span><br><span class="line">clientPort=<span class="number">2181</span> <span class="preprocessor"># 端口号</span></span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>客户端Session最小timeout时间为tickTime的2倍，客户端Session的timeout可以在连接Zookeeper的时候进行指定，该timeout会影响Zookeeper中的临时节点的存活时间。</li>
+<li>如果没有设置dataLogDir，会同时将事务日志也纪录到其中，建议在生产环境中将dataLogDir和dataDir为保证吞吐量和可靠的延迟，建议配置为不同的磁盘设备 </li>
+</ul>
+<p>具体参数的解释请参见：<a href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration" target="_blank" rel="external">http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration</a></p>
+<p>在zoo.cfg文件中增加如下配置：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataLogDir=/data/zookeeper/datalog ＃ 保存事务日志的目录</span><br><span class="line">autopurge.snapRetainCount=<span class="number">15</span> <span class="preprocessor"># 设置保存的事务日志允许的最大数目</span></span><br><span class="line">autopurge.purgeInterval=<span class="number">24</span> <span class="preprocessor"># 自动清除事务日志的时间间隔，单位为小时</span></span><br><span class="line">server<span class="number">.1</span>=zk01:<span class="number">2888</span>:<span class="number">3888</span> </span><br><span class="line">server<span class="number">.2</span>=zk02:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.3</span>=zk03:<span class="number">2888</span>:<span class="number">3888</span></span><br></pre></td></tr></table></figure>
+<p>注意: 一定要设置参数：autopurge.snapRetainCount和autopurge.purgeInterval，否则，对应dataLogDir的日志很容易就塞满整个磁盘。<br>在各台主机下的dataDir配置的目录下使用命令<code>echo &quot;1&quot; &gt; myid</code>来创建myid文件。主机zk01使用<code>echo &quot;1&quot;&gt;myid</code>，主机zk02使用<code>echo &quot;2&quot;&gt; myid</code>，主机zk03使用<code>echo &quot;3&quot; &gt; myid</code>。</p>
+<h3 id="4-_优化Zookeeper的JVM参数">4. 优化Zookeeper的JVM参数</h3><p>使用vim命令修改Zookeeper安装目录子目录bin下的zkEnv.sh文件，在最下方增加一行：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">JVMFLAGS=<span class="value"><span class="string">"-Xms4096m -Xmx4096m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled"</span></span></span></span><br></pre></td></tr></table></figure>
+<p>修改JVM的最小堆，最大堆，新生代，老年代的GC算法等。</p>
+<h1 id="启动Zookeeper">启动Zookeeper</h1><p>在配置完上述内容后，就可以在Zookeeper安装目录下使用</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zkServer<span class="class">.sh</span> start</span><br></pre></td></tr></table></figure>
+<p>来启动Zookeeper。到此，整个Zookeeper的集群安装部署就完成了。</p>
+<h1 id="参考">参考</h1><ol>
+<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html</a></li>
+<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq</a></li>
+<li><a href="http://blog.csdn.net/shirdrn/article/details/7183503" target="_blank" rel="external">http://blog.csdn.net/shirdrn/article/details/7183503</a></li>
+<li><a href="http://blog.chinaunix.net/uid-26275986-id-3957283.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-26275986-id-3957283.html</a></li>
+<li><a href="http://blog.csdn.net/gobitan/article/details/8659175" target="_blank" rel="external">http://blog.csdn.net/gobitan/article/details/8659175</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/3294581.html" target="_blank" rel="external">http://www.cnblogs.com/sharpxiajun/p/3294581.html</a></li>
+</ol>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/10/25/python-date-processing/" itemprop="url">
                 Python之日期函数处理
               </a>
@@ -421,7 +528,7 @@ sudo supervisorctl <span class="built_in">stop</span> flumelog
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -474,17 +581,6 @@ sudo supervisorctl <span class="built_in">stop</span> flumelog
     <i class="icon-next-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Circle Wu</span>
-</div>
-
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
 </div>
 
 

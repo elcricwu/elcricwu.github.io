@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Python," />
+  <meta name="keywords" content="Hexo,next" />
 
 
 
@@ -35,25 +35,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 
-主要使用了python原生模块datime中的datetime, timedelta，以及time模块。
-1.timestamp转datetimetimestamp(毫秒数)转datetime:
-1234567def date_from_t">
+<meta name="description" content="date: 2015-11-29 13:19:41title: ‘CentOS下Zookeeper集群安装部署实践’categories: 
+
+zookeepertags: 
+zookeeper
+
+
+本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python之日期函数处理">
-<meta property="og:url" content="http://elcricwu.github.io/2015/10/25/python-date-processing/index.html">
+<meta property="og:title" content="Think Different">
+<meta property="og:url" content="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/index.html">
 <meta property="og:site_name" content="Think Different">
-<meta property="og:description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 
-主要使用了python原生模块datime中的datetime, timedelta，以及time模块。
-1.timestamp转datetimetimestamp(毫秒数)转datetime:
-1234567def date_from_t">
-<meta property="og:updated_time" content="2015-11-26T12:27:20.000Z">
+<meta property="og:description" content="date: 2015-11-29 13:19:41title: ‘CentOS下Zookeeper集群安装部署实践’categories: 
+
+zookeepertags: 
+zookeeper
+
+
+本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dy">
+<meta property="og:updated_time" content="2015-11-29T05:38:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python之日期函数处理">
-<meta name="twitter:description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 
-主要使用了python原生模块datime中的datetime, timedelta，以及time模块。
-1.timestamp转datetimetimestamp(毫秒数)转datetime:
-1234567def date_from_t">
+<meta name="twitter:title" content="Think Different">
+<meta name="twitter:description" content="date: 2015-11-29 13:19:41title: ‘CentOS下Zookeeper集群安装部署实践’categories: 
+
+zookeepertags: 
+zookeeper
+
+
+本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dy">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -63,7 +72,7 @@
   };
 </script>
 
-  <title> Python之日期函数处理 | Think Different </title>
+  <title>  | Think Different </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -178,7 +187,7 @@
           
           
             
-              Python之日期函数处理
+              
             
           
         </h1>
@@ -187,34 +196,19 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-25T16:26:15+08:00" content="2015-10-25">
-            2015-10-25
+          <time itemprop="dateCreated" datetime="2015-11-29T13:38:35+08:00" content="2015-11-29">
+            2015-11-29
           </time>
         </span>
 
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Python/" itemprop="url" rel="index">
-                  <span itemprop="name">Python</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/25/python-date-processing/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/25/python-date-processing/" itemprop="commentsCount"></span>
+              <a href="/2015/11/29/zookeeper-cluster-installation/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/29/zookeeper-cluster-installation/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -228,50 +222,61 @@
       
 
       
-        <span itemprop="articleBody"><p>本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(<code>DateTime</code>和<code>Time</code>）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 </p>
-<p>主要使用了python原生模块datime中的datetime, timedelta，以及time模块。</p>
-<h1 id="1-timestamp转datetime">1.timestamp转datetime</h1><p>timestamp(毫秒数)转datetime:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_from_timestamp_mills</span><span class="params">(timestamp)</span>:</span></span><br><span class="line">    timestamp_mills = ( timestamp % <span class="number">1000</span> ) * <span class="number">1000</span></span><br><span class="line">    timestamp_seconds = timestamp / <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">    date = datetime.fromtimestamp(timestamp_seconds)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> datetime(date.year, date.month, date.day, date.hour, date.minute, date.second, timestamp_mills)</span><br></pre></td></tr></table></figure>
-<p>timestamp(秒数)转datetime:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_from_timestamp_seconds</span><span class="params">(timestamp)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> datetime.fromtimestamp(timestamp)</span><br></pre></td></tr></table></figure>
-<h1 id="2-datetime转字符串表示">2.datetime转字符串表示</h1><p>datetime转字符串主要是用了datetime的strftime函数。其中格式化的字符串主要有如下：</p>
+        <span itemprop="articleBody"><p>date: 2015-11-29 13:19:41<br>title: ‘CentOS下Zookeeper集群安装部署实践’<br>categories: </p>
 <ul>
-<li>2015-10-25对应format：%Y-%m-%s </li>
-<li>2015-10-25 20:05:00对应format：%Y-%m-%s %H:%M:%S</li>
+<li>zookeeper<br>tags: </li>
+<li>zookeeper</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">format_date</span><span class="params">(date, format_pattern)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> date.strftime(format_pattern)</span><br></pre></td></tr></table></figure>
-<p>其他的格式字符串可以参见python官方文档：<a href="https://docs.python.org/2/library/datetime.html" target="_blank" rel="external">https://docs.python.org/2/library/datetime.html</a></p>
-<h1 id="3-字符串转datetime">3.字符串转datetime</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_date</span><span class="params">(date_str, format_pattern)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> datetime.strptime(date_str, format_pattern)</span><br></pre></td></tr></table></figure>
-<h1 id="4-datetime转timestamp">4.datetime转timestamp</h1><p>dateime转timestamp(毫秒数): </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取日期中的毫秒数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timestamp_mills_from_date</span><span class="params">(date)</span>:</span></span><br><span class="line">    mills = date.microsecond / <span class="number">1000</span></span><br><span class="line">    <span class="keyword">return</span> long(time.mktime(date.timetuple()) * <span class="number">1000</span>) + mills</span><br></pre></td></tr></table></figure>
-<p>datetime转timestamp(秒数):</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timestamp_secs_from_date</span><span class="params">(date)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> long(time.mktime(date.timetuple()))</span><br></pre></td></tr></table></figure>
-<h1 id="5-使用timedelta来进行日期的增减">5.使用timedelta来进行日期的增减</h1><p>主要使用模块datetime的timedelta模块进行日期的删减，timedelta只支持到最大范围为周的情况。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_add</span><span class="params">(date, weeks=<span class="number">0</span>, days=<span class="number">0</span>, hours=<span class="number">0</span>, minutes=<span class="number">0</span>, seconds=<span class="number">0</span>)</span>:</span></span><br><span class="line">    add_delta = timedelta(days=days, seconds=seconds, minutes=minutes, hours=hours, weeks=weeks)</span><br><span class="line">    <span class="keyword">return</span> date + add_delta</span><br></pre></td></tr></table></figure></p>
-<h1 id="6-其他">6.其他</h1><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line"><span class="type">date</span> = datetime.now()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取日期对应的年份</span></span><br><span class="line"><span class="type">date</span>.<span class="property">year</span></span><br><span class="line"><span class="comment"># 获取日期对应的月份(1-12)</span></span><br><span class="line"><span class="type">date</span>.<span class="property">month</span></span><br><span class="line"><span class="comment"># 获取日期对应的日</span></span><br><span class="line"><span class="type">date</span>.<span class="property">day</span></span><br><span class="line"><span class="comment"># 获取日期对应的小时(0-23)</span></span><br><span class="line"><span class="type">date</span>.hour</span><br><span class="line"><span class="comment"># 获取日期对应的分钟(0-59)</span></span><br><span class="line"><span class="type">date</span>.minute</span><br><span class="line"><span class="comment"># 获取日期对应的秒数(0-59)</span></span><br><span class="line"><span class="type">date</span>.<span class="keyword">second</span></span><br><span class="line"><span class="comment"># 获取日期对应的微秒， 可以通过除以1000来获取毫秒</span></span><br><span class="line"><span class="type">date</span>.microsecond</span><br></pre></td></tr></table></figure>
+<hr>
+<p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a></p>
+<h1 id="前提条件">前提条件</h1><ul>
+<li>机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。</li>
+<li>请准备3台装有CentOS的机器</li>
+</ul>
+<h1 id="安装Zookeeper">安装Zookeeper</h1><h3 id="1-_配置CentOS的hosts。">1. 配置CentOS的hosts。</h3><p>例如：3台CentOS主机的ip分别为192.168.1.101，192.168.1.102，192.168.1.103。修改3台主机的<code>/etc/hosts</code>的配置如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.101</span> zk01</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.102</span> zk02</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.103</span> zk03</span><br></pre></td></tr></table></figure>
+<h3 id="2-_解压zookeeper-3-4-6-tar-gz">2. 解压zookeeper-3.4.6.tar.gz</h3><p>在CentOS机器下创建目录<code>/data/applications</code>，将下载下来的压缩包：zookeeper-3.4.6.tar.gz拷贝到刚创建的目录下，使用<code>tar zxvf zookeeper-3.4.6.tar.gz</code>解压到当前目录下。使用<code>ln -s /data/applications/zookeeper-3.4.6 zookeeper</code>来创建软连接。</p>
+<h3 id="3-_配置zookeeper">3. 配置zookeeper</h3><p>将解压出来的zookeeper的conf目录下zoo_sample.cfg文件拷贝zoo.cfg文件。目前已有的配置如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tickTime=<span class="number">2000</span> ＃Zookeeper机器的心跳间隔时间，单位为毫秒数；</span><br><span class="line">initLimit=<span class="number">10</span> ＃Zookeeper的机器初始连接允许的最大时间长度，为tickTime的倍数</span><br><span class="line">syncLimit=<span class="number">5</span> <span class="preprocessor"># Zookeeper的Leader和Follower同步的允许的最大时间长度，为tickTime的倍数</span></span><br><span class="line">dataDir=/data/zookeeper/data <span class="preprocessor"># dataDir存储Zookeeper的内存的snapshot，不要使用/tmp目录</span></span><br><span class="line">clientPort=<span class="number">2181</span> <span class="preprocessor"># 端口号</span></span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>客户端Session最小timeout时间为tickTime的2倍，客户端Session的timeout可以在连接Zookeeper的时候进行指定，该timeout会影响Zookeeper中的临时节点的存活时间。</li>
+<li>如果没有设置dataLogDir，会同时将事务日志也纪录到其中，建议在生产环境中将dataLogDir和dataDir为保证吞吐量和可靠的延迟，建议配置为不同的磁盘设备 </li>
+</ul>
+<p>具体参数的解释请参见：<a href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration" target="_blank" rel="external">http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration</a></p>
+<p>在zoo.cfg文件中增加如下配置：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataLogDir=/data/zookeeper/datalog ＃ 保存事务日志的目录</span><br><span class="line">autopurge.snapRetainCount=<span class="number">15</span> <span class="preprocessor"># 设置保存的事务日志允许的最大数目</span></span><br><span class="line">autopurge.purgeInterval=<span class="number">24</span> <span class="preprocessor"># 自动清除事务日志的时间间隔，单位为小时</span></span><br><span class="line">server<span class="number">.1</span>=zk01:<span class="number">2888</span>:<span class="number">3888</span> </span><br><span class="line">server<span class="number">.2</span>=zk02:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.3</span>=zk03:<span class="number">2888</span>:<span class="number">3888</span></span><br></pre></td></tr></table></figure>
+<p>注意: 一定要设置参数：autopurge.snapRetainCount和autopurge.purgeInterval，否则，对应dataLogDir的日志很容易就塞满整个磁盘。<br>在各台主机下的dataDir配置的目录下使用命令<code>echo &quot;1&quot; &gt; myid</code>来创建myid文件。主机zk01使用<code>echo &quot;1&quot;&gt;myid</code>，主机zk02使用<code>echo &quot;2&quot;&gt; myid</code>，主机zk03使用<code>echo &quot;3&quot; &gt; myid</code>。</p>
+<h3 id="4-_优化Zookeeper的JVM参数">4. 优化Zookeeper的JVM参数</h3><p>使用vim命令修改Zookeeper安装目录子目录bin下的zkEnv.sh文件，在最下方增加一行：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">JVMFLAGS=<span class="value"><span class="string">"-Xms4096m -Xmx4096m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled"</span></span></span></span><br></pre></td></tr></table></figure>
+<p>修改JVM的最小堆，最大堆，新生代，老年代的GC算法等。</p>
+<h1 id="启动Zookeeper">启动Zookeeper</h1><p>在配置完上述内容后，就可以在Zookeeper安装目录下使用</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zkServer<span class="class">.sh</span> start</span><br></pre></td></tr></table></figure>
+<p>来启动Zookeeper。到此，整个Zookeeper的集群安装部署就完成了。</p>
+<h1 id="参考">参考</h1><ol>
+<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html</a></li>
+<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq</a></li>
+<li><a href="http://blog.csdn.net/shirdrn/article/details/7183503" target="_blank" rel="external">http://blog.csdn.net/shirdrn/article/details/7183503</a></li>
+<li><a href="http://blog.chinaunix.net/uid-26275986-id-3957283.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-26275986-id-3957283.html</a></li>
+<li><a href="http://blog.csdn.net/gobitan/article/details/8659175" target="_blank" rel="external">http://blog.csdn.net/gobitan/article/details/8659175</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/3294581.html" target="_blank" rel="external">http://www.cnblogs.com/sharpxiajun/p/3294581.html</a></li>
+</ol>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Python/" rel="tag">#Python</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/29/zookeeper-cluster-installation/" rel="prev"></a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/22/supervisor-installation-configuration/" rel="next">Supervisor安装与配置</a>
+              <a href="/2015/10/25/python-date-processing/" rel="next">Python之日期函数处理</a>
             
           </div>
         </div>
@@ -296,8 +301,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/25/python-date-processing/"
-                   data-title="Python之日期函数处理" data-url="http://elcricwu.github.io/2015/10/25/python-date-processing/">
+              <div class="ds-thread" data-thread-key="2015/11/29/zookeeper-cluster-installation/"
+                   data-title="" data-url="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/">
               </div>
             
           </div>
@@ -379,7 +384,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-timestamp转datetime"><span class="nav-number">1.</span> <span class="nav-text">1.timestamp转datetime</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-datetime转字符串表示"><span class="nav-number">2.</span> <span class="nav-text">2.datetime转字符串表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-字符串转datetime"><span class="nav-number">3.</span> <span class="nav-text">3.字符串转datetime</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-datetime转timestamp"><span class="nav-number">4.</span> <span class="nav-text">4.datetime转timestamp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-使用timedelta来进行日期的增减"><span class="nav-number">5.</span> <span class="nav-text">5.使用timedelta来进行日期的增减</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-其他"><span class="nav-number">6.</span> <span class="nav-text">6.其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前提条件"><span class="nav-number">1.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Zookeeper"><span class="nav-number">2.</span> <span class="nav-text">安装Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_配置CentOS的hosts。"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 配置CentOS的hosts。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_解压zookeeper-3-4-6-tar-gz"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 解压zookeeper-3.4.6.tar.gz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_配置zookeeper"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. 配置zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-_优化Zookeeper的JVM参数"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. 优化Zookeeper的JVM参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">启动Zookeeper</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
