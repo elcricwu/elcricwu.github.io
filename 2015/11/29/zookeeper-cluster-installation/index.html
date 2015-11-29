@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="Zookeeper," />
 
 
 
@@ -35,34 +35,31 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="title: ‘CentOS下Zookeeper集群安装部署实践’date: 2015-11-29 16:26:15categories:
+<meta name="description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/
+前提条件
+机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。
+请准备3台装有CentOS的机器
 
-Zookeepertags:
-Zookeeper
-
-
-本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/">
+安装Zook">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Think Different">
+<meta property="og:title" content="CentOS下Zookeeper集群安装部署实践">
 <meta property="og:url" content="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/index.html">
 <meta property="og:site_name" content="Think Different">
-<meta property="og:description" content="title: ‘CentOS下Zookeeper集群安装部署实践’date: 2015-11-29 16:26:15categories:
+<meta property="og:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/
+前提条件
+机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。
+请准备3台装有CentOS的机器
 
-Zookeepertags:
-Zookeeper
-
-
-本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/">
-<meta property="og:updated_time" content="2015-11-29T05:53:02.000Z">
+安装Zook">
+<meta property="og:updated_time" content="2015-11-29T06:05:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Think Different">
-<meta name="twitter:description" content="title: ‘CentOS下Zookeeper集群安装部署实践’date: 2015-11-29 16:26:15categories:
+<meta name="twitter:title" content="CentOS下Zookeeper集群安装部署实践">
+<meta name="twitter:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/
+前提条件
+机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。
+请准备3台装有CentOS的机器
 
-Zookeepertags:
-Zookeeper
-
-
-本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/">
+安装Zook">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +69,7 @@ Zookeeper
   };
 </script>
 
-  <title>  | Think Different </title>
+  <title> CentOS下Zookeeper集群安装部署实践 | Think Different </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -187,7 +184,7 @@ Zookeeper
           
           
             
-              
+              CentOS下Zookeeper集群安装部署实践
             
           
         </h1>
@@ -196,11 +193,26 @@ Zookeeper
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-11-29T13:53:02+08:00" content="2015-11-29">
+          <time itemprop="dateCreated" datetime="2015-11-29T14:02:14+08:00" content="2015-11-29">
             2015-11-29
           </time>
         </span>
 
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Zookeeper/" itemprop="url" rel="index">
+                  <span itemprop="name">Zookeeper</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
         
 
         
@@ -222,13 +234,7 @@ Zookeeper
       
 
       
-        <span itemprop="articleBody"><p>title: ‘CentOS下Zookeeper集群安装部署实践’<br>date: 2015-11-29 16:26:15<br>categories:</p>
-<ul>
-<li>Zookeeper<br>tags:</li>
-<li>Zookeeper</li>
-</ul>
-<hr>
-<p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a></p>
+        <span itemprop="articleBody"><p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a></p>
 <h1 id="前提条件">前提条件</h1><ul>
 <li>机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。</li>
 <li>请准备3台装有CentOS的机器</li>
@@ -267,6 +273,12 @@ Zookeeper
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Zookeeper/" rel="tag">#Zookeeper</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
@@ -302,7 +314,7 @@ Zookeeper
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/11/29/zookeeper-cluster-installation/"
-                   data-title="" data-url="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/">
+                   data-title="CentOS下Zookeeper集群安装部署实践" data-url="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/">
               </div>
             
           </div>
@@ -349,14 +361,14 @@ Zookeeper
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
