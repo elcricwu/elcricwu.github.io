@@ -170,6 +170,96 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/29/tomcat-accesslog-config/" itemprop="url">
+                Tomcat打印Access Log配置
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-29T14:46:07+08:00" content="2015-11-29">
+            2015-11-29
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Java/" itemprop="url" rel="index">
+                  <span itemprop="name">Java</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/29/tomcat-accesslog-config/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/29/tomcat-accesslog-config/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>本文是基于Tomcat 7.0.55版本来配置打印Access Log。</p>
+<h1 id="修改server-xml">修改server.xml</h1><p>字啊Tomcat安装目录下conf子目录下的server.xml文件中<code>&lt;host&gt;</code>元素下增加一行配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Valve</span> <span class="attribute">className</span>=<span class="value">"org.apache.catalina.valves.AccessLogValve"</span> <span class="attribute">directory</span>=<span class="value">"/data/log/tomcat"</span></span><br><span class="line">               <span class="attribute">prefix</span>=<span class="value">"access"</span> <span class="attribute">suffix</span>=<span class="value">".log"</span> <span class="attribute">renameOnRotate</span>=<span class="value">"true"</span></span><br><span class="line">               <span class="attribute">pattern</span>=<span class="value">"%t&amp;#9;%a&amp;#9;%A&amp;#9;&amp;quot;%r&amp;quot;&amp;#9;%s&amp;#9;%D&amp;#9;%b&amp;#9;%I"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/29/tomcat-accesslog-config/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/29/zookeeper-cluster-installation/" itemprop="url">
                 CentOS下Zookeeper集群安装部署实践
               </a>
@@ -223,40 +313,12 @@
 
       
         
-          <span itemprop="articleBody"><p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a></p>
-<h1 id="前提条件">前提条件</h1><ul>
-<li>机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。</li>
-<li>请准备3台装有CentOS的机器</li>
-</ul>
-<h1 id="安装Zookeeper">安装Zookeeper</h1><h3 id="1-_配置CentOS的hosts。">1. 配置CentOS的hosts。</h3><p>例如：3台CentOS主机的ip分别为192.168.1.101，192.168.1.102，192.168.1.103。修改3台主机的<code>/etc/hosts</code>的配置如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.101</span> zk01</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.102</span> zk02</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.103</span> zk03</span><br></pre></td></tr></table></figure>
-<h3 id="2-_解压zookeeper-3-4-6-tar-gz">2. 解压zookeeper-3.4.6.tar.gz</h3><p>在CentOS机器下创建目录<code>/data/applications</code>，将下载下来的压缩包：zookeeper-3.4.6.tar.gz拷贝到刚创建的目录下，使用<code>tar zxvf zookeeper-3.4.6.tar.gz</code>解压到当前目录下。使用<code>ln -s /data/applications/zookeeper-3.4.6 zookeeper</code>来创建软连接。</p>
-<h3 id="3-_配置zookeeper">3. 配置zookeeper</h3><p>将解压出来的zookeeper的conf目录下zoo_sample.cfg文件拷贝zoo.cfg文件。目前已有的配置如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tickTime=<span class="number">2000</span> ＃Zookeeper机器的心跳间隔时间，单位为毫秒数；</span><br><span class="line">initLimit=<span class="number">10</span> ＃Zookeeper的机器初始连接允许的最大时间长度，为tickTime的倍数</span><br><span class="line">syncLimit=<span class="number">5</span> <span class="preprocessor"># Zookeeper的Leader和Follower同步的允许的最大时间长度，为tickTime的倍数</span></span><br><span class="line">dataDir=/data/zookeeper/data <span class="preprocessor"># dataDir存储Zookeeper的内存的snapshot，不要使用/tmp目录</span></span><br><span class="line">clientPort=<span class="number">2181</span> <span class="preprocessor"># 端口号</span></span><br></pre></td></tr></table></figure>
-<p>注意：</p>
-<ul>
-<li>客户端Session最小timeout时间为tickTime的2倍，客户端Session的timeout可以在连接Zookeeper的时候进行指定，该timeout会影响Zookeeper中的临时节点的存活时间。</li>
-<li>如果没有设置dataLogDir，会同时将事务日志也纪录到其中，建议在生产环境中将dataLogDir和dataDir为保证吞吐量和可靠的延迟，建议配置为不同的磁盘设备 </li>
-</ul>
-<p>具体参数的解释请参见：<a href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration" target="_blank" rel="external">http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration</a></p>
-<p>在zoo.cfg文件中增加如下配置：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataLogDir=/data/zookeeper/datalog ＃ 保存事务日志的目录</span><br><span class="line">autopurge.snapRetainCount=<span class="number">15</span> <span class="preprocessor"># 设置保存的事务日志允许的最大数目</span></span><br><span class="line">autopurge.purgeInterval=<span class="number">24</span> <span class="preprocessor"># 自动清除事务日志的时间间隔，单位为小时</span></span><br><span class="line">server<span class="number">.1</span>=zk01:<span class="number">2888</span>:<span class="number">3888</span> </span><br><span class="line">server<span class="number">.2</span>=zk02:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.3</span>=zk03:<span class="number">2888</span>:<span class="number">3888</span></span><br></pre></td></tr></table></figure>
-<p>注意: 一定要设置参数：autopurge.snapRetainCount和autopurge.purgeInterval，否则，对应dataLogDir的日志很容易就塞满整个磁盘。<br>在各台主机下的dataDir配置的目录下使用命令<code>echo &quot;1&quot; &gt; myid</code>来创建myid文件。主机zk01使用<code>echo &quot;1&quot;&gt;myid</code>，主机zk02使用<code>echo &quot;2&quot;&gt; myid</code>，主机zk03使用<code>echo &quot;3&quot; &gt; myid</code>。</p>
-<h3 id="4-_优化Zookeeper的JVM参数">4. 优化Zookeeper的JVM参数</h3><p>使用vim命令修改Zookeeper安装目录子目录bin下的zkEnv.sh文件，在最下方增加一行：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">JVMFLAGS=<span class="value"><span class="string">"-Xms4096m -Xmx4096m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled"</span></span></span></span><br></pre></td></tr></table></figure>
-<p>修改JVM的最小堆，最大堆，新生代，老年代的GC算法等。</p>
-<h1 id="启动Zookeeper">启动Zookeeper</h1><p>在配置完上述内容后，就可以在Zookeeper安装目录下使用</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zkServer<span class="class">.sh</span> start</span><br></pre></td></tr></table></figure>
-<p>来启动Zookeeper。到此，整个Zookeeper的集群安装部署就完成了。</p>
-<h1 id="参考">参考</h1><ol>
-<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html</a></li>
-<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq</a></li>
-<li><a href="http://blog.csdn.net/shirdrn/article/details/7183503" target="_blank" rel="external">http://blog.csdn.net/shirdrn/article/details/7183503</a></li>
-<li><a href="http://blog.chinaunix.net/uid-26275986-id-3957283.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-26275986-id-3957283.html</a></li>
-<li><a href="http://blog.csdn.net/gobitan/article/details/8659175" target="_blank" rel="external">http://blog.csdn.net/gobitan/article/details/8659175</a></li>
-<li><a href="http://www.cnblogs.com/sharpxiajun/p/3294581.html" target="_blank" rel="external">http://www.cnblogs.com/sharpxiajun/p/3294581.html</a></li>
-</ol>
-</span>
+          <p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/">http://www.apache.org/dyn/closer.cgi/zookeeper/</a><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/29/zookeeper-cluster-installation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -339,27 +401,12 @@
 
       
         
-          <span itemprop="articleBody"><p>本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(<code>DateTime</code>和<code>Time</code>）以及日期的字符串表示之间的相互转化，以及日期的增减操作。 </p>
-<p>主要使用了python原生模块datime中的datetime, timedelta，以及time模块。</p>
-<h1 id="1-timestamp转datetime">1.timestamp转datetime</h1><p>timestamp(毫秒数)转datetime:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_from_timestamp_mills</span><span class="params">(timestamp)</span>:</span></span><br><span class="line">    timestamp_mills = ( timestamp % <span class="number">1000</span> ) * <span class="number">1000</span></span><br><span class="line">    timestamp_seconds = timestamp / <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">    date = datetime.fromtimestamp(timestamp_seconds)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> datetime(date.year, date.month, date.day, date.hour, date.minute, date.second, timestamp_mills)</span><br></pre></td></tr></table></figure>
-<p>timestamp(秒数)转datetime:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_from_timestamp_seconds</span><span class="params">(timestamp)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> datetime.fromtimestamp(timestamp)</span><br></pre></td></tr></table></figure>
-<h1 id="2-datetime转字符串表示">2.datetime转字符串表示</h1><p>datetime转字符串主要是用了datetime的strftime函数。其中格式化的字符串主要有如下：</p>
-<ul>
-<li>2015-10-25对应format：%Y-%m-%s </li>
-<li>2015-10-25 20:05:00对应format：%Y-%m-%s %H:%M:%S</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">format_date</span><span class="params">(date, format_pattern)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> date.strftime(format_pattern)</span><br></pre></td></tr></table></figure>
-<p>其他的格式字符串可以参见python官方文档：<a href="https://docs.python.org/2/library/datetime.html" target="_blank" rel="external">https://docs.python.org/2/library/datetime.html</a></p>
-<h1 id="3-字符串转datetime">3.字符串转datetime</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_date</span><span class="params">(date_str, format_pattern)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> datetime.strptime(date_str, format_pattern)</span><br></pre></td></tr></table></figure>
-<h1 id="4-datetime转timestamp">4.datetime转timestamp</h1><p>dateime转timestamp(毫秒数): </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取日期中的毫秒数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timestamp_mills_from_date</span><span class="params">(date)</span>:</span></span><br><span class="line">    mills = date.microsecond / <span class="number">1000</span></span><br><span class="line">    <span class="keyword">return</span> long(time.mktime(date.timetuple()) * <span class="number">1000</span>) + mills</span><br></pre></td></tr></table></figure>
-<p>datetime转timestamp(秒数):</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timestamp_secs_from_date</span><span class="params">(date)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> long(time.mktime(date.timetuple()))</span><br></pre></td></tr></table></figure>
-<h1 id="5-使用timedelta来进行日期的增减">5.使用timedelta来进行日期的增减</h1><p>主要使用模块datetime的timedelta模块进行日期的删减，timedelta只支持到最大范围为周的情况。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_add</span><span class="params">(date, weeks=<span class="number">0</span>, days=<span class="number">0</span>, hours=<span class="number">0</span>, minutes=<span class="number">0</span>, seconds=<span class="number">0</span>)</span>:</span></span><br><span class="line">    add_delta = timedelta(days=days, seconds=seconds, minutes=minutes, hours=hours, weeks=weeks)</span><br><span class="line">    <span class="keyword">return</span> date + add_delta</span><br></pre></td></tr></table></figure></p>
-<h1 id="6-其他">6.其他</h1><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line"><span class="type">date</span> = datetime.now()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取日期对应的年份</span></span><br><span class="line"><span class="type">date</span>.<span class="property">year</span></span><br><span class="line"><span class="comment"># 获取日期对应的月份(1-12)</span></span><br><span class="line"><span class="type">date</span>.<span class="property">month</span></span><br><span class="line"><span class="comment"># 获取日期对应的日</span></span><br><span class="line"><span class="type">date</span>.<span class="property">day</span></span><br><span class="line"><span class="comment"># 获取日期对应的小时(0-23)</span></span><br><span class="line"><span class="type">date</span>.hour</span><br><span class="line"><span class="comment"># 获取日期对应的分钟(0-59)</span></span><br><span class="line"><span class="type">date</span>.minute</span><br><span class="line"><span class="comment"># 获取日期对应的秒数(0-59)</span></span><br><span class="line"><span class="type">date</span>.<span class="keyword">second</span></span><br><span class="line"><span class="comment"># 获取日期对应的微秒， 可以通过除以1000来获取毫秒</span></span><br><span class="line"><span class="type">date</span>.microsecond</span><br></pre></td></tr></table></figure>
-</span>
+          <p>本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(<code>DateTime</code>和<code>Time</code>）以及日期的字符串表示之间的相互转化，以及日期的增减操作。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/25/python-date-processing/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -442,49 +489,12 @@
 
       
         
-          <span itemprop="articleBody"><p>Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。  </p>
-<h2 id="安装Supervisor">安装Supervisor</h2><p>使用<code>pip install supervisor</code>，如果提示Permission Denied，则使用<code>sudo pip install supervisor</code>。如果需要安装的linux环境无法连接外网，直接离线安装，参考：<a href="http://supervisord.org/installing.html" target="_blank" rel="external">http://supervisord.org/installing.html</a></p>
-<h2 id="创建Supervisor默认配置文件">创建Supervisor默认配置文件</h2><p>一旦Supervisor安装成功后,可以使用</p>
-<pre><code>sudo <span class="built_in">echo</span>_supervisord_conf &gt; /etc/supervisord.conf
-</code></pre><p>来生成默认的配置文件。文件中大部分内容都是用分号(;)注释掉的，配置文件的格式是ini格式。 </p>
-<p>当然你也可以直接使用</p>
-<pre><code>sudo <span class="keyword">vim</span> /etc/supervisord.<span class="keyword">conf</span>
-</code></pre><p>来直接创建supervisord.conf文件。</p>
-<p>下面是一个示例的配置文件：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[unix_http_server]</span><br><span class="line">; (the path to the socket <span class="keyword">file</span>)</span><br><span class="line"><span class="keyword">file</span>=/<span class="keyword">var</span>/tmp/supervisor.sock </span><br><span class="line">; socket <span class="keyword">file</span> mode (default 0700)</span><br><span class="line">chmod=0700</span><br><span class="line">	</span><br><span class="line">[supervisord]</span><br><span class="line">; (main <span class="keyword">log</span> <span class="keyword">file</span>;default <span class="label">$CWD</span>/supervisord.<span class="keyword">log</span>)</span><br><span class="line">logfile=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor/supervisord.<span class="keyword">log</span> </span><br><span class="line">; (supervisord pidfile;default supervisord.pid)</span><br><span class="line">pidfile=/<span class="keyword">var</span>/<span class="keyword">run</span>/supervisord.pid 	</span><br><span class="line">; ('AUTO' child <span class="keyword">log</span> <span class="keyword">dir</span>, default <span class="label">$TEMP</span>)</span><br><span class="line">childlogdir=/<span class="keyword">var</span>/<span class="keyword">log</span>/supervisor            	</span><br><span class="line">[rpcinterface:supervisor]</span><br><span class="line">supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface</span><br><span class="line">	</span><br><span class="line">[supervisorctl]</span><br><span class="line">; <span class="keyword">use</span> a unix:<span class="comment">// URL  for a unix socket</span></span><br><span class="line">serverurl=unix:<span class="comment">///var/tmp/supervisor.sock  	</span></span><br><span class="line">[<span class="keyword">include</span>]</span><br><span class="line">files = supervisor/<span class="keyword">conf</span>.<span class="keyword">d</span><span class="comment">/*.ini</span></span><br></pre></td></tr></table></figure>
-<p>注意：在上述这个配置文件中把Supervisor本身的配置和Supervisor管理的Program的配置分开来了，秘密就在<code>[inlcude]</code>这段配置下。最好在使用Supervisor来配置受管理的Program时，使用这种方式。这个方式有两个好处：</p>
-<ul>
-<li>将Supervisor本身的配置和受管理的进程配置分离开来，在配置上更清晰了</li>
-<li>所有的Supervisor管理的进程配置文件位于/etc/supervisor/conf.d下，并且以ini作为文件后缀，方便管理Supervisor配置的进程。如果不想要让Supervisor管理某个进程只需要使用<code>mv</code>命令将该配置移动其他目录或者修改为.bak结尾的文件即可。</li>
-</ul>
-<p>如果新增新的Program，只需要在/etc/supervisor/conf.d目录新建该程序对应的ini文件。下面是ini文件的一个示例：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[program:flumelog]</span> </span><br><span class="line"><span class="comment">; command填写启动命令，例如下面的启动Flume的命令</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/share/flume/bin/flume-ng agent -n log -c /usr/share/flume/conf -f /usr/share/flume/conf/log.properties</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; directory指定启动的目录</span></span><br><span class="line"><span class="setting">directory=<span class="value">/usr/share/flume/</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; user设置启动该Program的用户</span></span><br><span class="line"><span class="setting">user=<span class="value">app</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; numprocs设置启动几个进程</span></span><br><span class="line"><span class="setting">numprocs=<span class="value"><span class="number">1</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; stdout_logfile用来设置stdout的日志文件地址</span></span><br><span class="line"><span class="setting">stdout_logfile=<span class="value">/data/log/flume/flumelog.log</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; stderr_logfile用来设置stderr（错误）的日志文件地址</span></span><br><span class="line"><span class="setting">stderr_logfile=<span class="value">/data/log/flume/flumelog.log</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; autostart设置是否自动启动</span></span><br><span class="line"><span class="setting">autostart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; autorestart设置当Program意外退出后自动重启</span></span><br><span class="line"><span class="setting">autorestart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; startsecs指定启动Program的秒数</span></span><br><span class="line"><span class="setting">startsecs=<span class="value"><span class="number">10</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; startretries设置启动的重试次数</span></span><br><span class="line"><span class="setting">startretries=<span class="value"><span class="number">10</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; stopwaitsecs设置Program停止等待的秒数</span></span><br><span class="line"><span class="setting">stopwaitsecs = <span class="value"><span class="number">600</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; killasgroup杀掉整个进程组，包含启动进程创建的子进程。</span></span><br><span class="line"><span class="setting">killasgroup=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; priority设置程序的优先级</span></span><br><span class="line"><span class="setting">priority=<span class="value"><span class="number">999</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; logfile_maxbytes设置日志文件大小</span></span><br><span class="line"><span class="setting">logfile_maxbytes=<span class="value"><span class="number">20</span>MB</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; logfile_backups设置</span></span><br><span class="line"><span class="setting">logfile_backups=<span class="value"><span class="number">20</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">; environment设置启动该Program的环境变量</span></span><br><span class="line"><span class="comment">; Program对应的环境变量。</span></span><br><span class="line"><span class="setting">environment=<span class="value">HOME=<span class="string">"/home/app"</span>,USER=<span class="string">"app"</span>,JAVA_HOME=<span class="string">"/usr/java/default"</span></span></span></span><br></pre></td></tr></table></figure>
-<p>注意：如果Supervisor以root权限启动，那么启动Program的环境变量就是root的对应的环境变量。注意：在某些情况下，由于环境变量设置不合理，导致无法通过Supervisor来启动Program，可以通过设置environment来强制指定启动Program的环境变量来解决。</p>
-<h2 id="启动Supervisor">启动Supervisor</h2><p>使用<code>sudo supervisord -c /etc/supervisord.conf</code>来启动Supervisor守护进程</p>
-<h2 id="使用supervisorctl来管理进程">使用supervisorctl来管理进程</h2><p><strong>查看supervisor管理的进程状态</strong> </p>
-<pre><code>sudo supervisorctl <span class="keyword">status</span>
-</code></pre><p><strong>更新supervisoir管理的进程</strong></p>
-<p>如果在/etc/supervisor/conf.d新增了新的进程配置ini文件，可以使用如下命令来添加新的进程。</p>
-<pre><code><span class="title">sudo</span> supervisorctl update
-</code></pre><p><strong>更新Supervisor配置</strong></p>
-<p>可以使用</p>
-<pre><code><span class="title">sudo</span> supervisorctl reload
-</code></pre><p>来更新supervisor的配置。注意：使用该命令会导致受supervisor管理的进程都进行重启。</p>
-<p><strong>重启，启动，停止进程</strong></p>
-<pre><code>sudo supervisorctl restart flumelog
-sudo supervisorctl <span class="built_in">start</span> flumelog
-sudo supervisorctl <span class="built_in">stop</span> flumelog
-</code></pre><p>其中，flumelog对应在上述Program配置中的名称，可以通过<code>sudo supervisorctl status</code>来查看program的名称。</p>
-<h2 id="问题和诊断">问题和诊断</h2><ol>
-<li><p>如果启动Program的过程中出现BACKOFF Exited too quickly (process log may have details)。</p>
-<p> 可以通过查看在stderr_logfile配置的log文件来分析到底是因为什么原因导致没有成功启动配置的Program。</p>
-</li>
-</ol>
-<h2 id="参考">参考</h2><ol>
-<li>用Supervisord管理Python进程 | @飞龙非龙<br><a href="http://feilong.me/2011/03/monitor-processes-with-supervisord" target="_blank" rel="external">http://feilong.me/2011/03/monitor-processes-with-supervisord</a></li>
-<li>Supervisor Run Program as Non-root<br><a href="http://ju.outofmemory.cn/entry/103009" target="_blank" rel="external">http://ju.outofmemory.cn/entry/103009</a></li>
-</ol>
-</span>
+          <p>Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。  </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/08/22/supervisor-installation-configuration/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -537,21 +547,21 @@ sudo supervisorctl <span class="built_in">stop</span> flumelog
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

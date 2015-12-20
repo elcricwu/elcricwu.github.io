@@ -35,19 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。  
-安装Supervisor使用pip install supervisor，如果提示Permission Denied">
+<meta name="description" content="Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Supervisor安装与配置">
 <meta property="og:url" content="http://elcricwu.github.io/2015/08/22/supervisor-installation-configuration/index.html">
 <meta property="og:site_name" content="Think Different">
-<meta property="og:description" content="Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。  
-安装Supervisor使用pip install supervisor，如果提示Permission Denied">
-<meta property="og:updated_time" content="2015-10-10T14:34:48.000Z">
+<meta property="og:description" content="Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。">
+<meta property="og:updated_time" content="2015-12-20T07:52:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Supervisor安装与配置">
-<meta name="twitter:description" content="Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。  
-安装Supervisor使用pip install supervisor，如果提示Permission Denied">
+<meta name="twitter:description" content="Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -223,6 +220,7 @@
 
       
         <span itemprop="articleBody"><p>Supervisor是一款用Python实现的进程管理工具，可以实现启动，关闭，重启由它管理的进程，并自动将进程转为daemon的方式来运行，如果程序因为异常退出或者被人为的kill掉，Supervisor会自动重启该进程。例如：用它来管理由uwsgi启动的WSGI服务器进程。  </p>
+<a id="more"></a>
 <h2 id="安装Supervisor">安装Supervisor</h2><p>使用<code>pip install supervisor</code>，如果提示Permission Denied，则使用<code>sudo pip install supervisor</code>。如果需要安装的linux环境无法连接外网，直接离线安装，参考：<a href="http://supervisord.org/installing.html" target="_blank" rel="external">http://supervisord.org/installing.html</a></p>
 <h2 id="创建Supervisor默认配置文件">创建Supervisor默认配置文件</h2><p>一旦Supervisor安装成功后,可以使用</p>
 <pre><code>sudo <span class="built_in">echo</span>_supervisord_conf &gt; /etc/supervisord.conf
@@ -353,21 +351,21 @@ sudo supervisorctl <span class="built_in">stop</span> flumelog
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

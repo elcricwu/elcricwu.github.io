@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Python," />
+  <meta name="keywords" content="Tomcat," />
 
 
 
@@ -35,16 +35,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。">
+<meta name="description" content="本文是基于Tomcat 7.0.55版本来配置打印Access Log。
+修改server.xml字啊Tomcat安装目录下conf子目录下的server.xml文件中&amp;lt;host&amp;gt;元素下增加一行配置：
+123&amp;lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;/data/log/tomca">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python之日期函数处理">
-<meta property="og:url" content="http://elcricwu.github.io/2015/10/25/python-date-processing/index.html">
+<meta property="og:title" content="Tomcat打印Access Log配置">
+<meta property="og:url" content="http://elcricwu.github.io/2015/11/29/tomcat-accesslog-config/index.html">
 <meta property="og:site_name" content="Think Different">
-<meta property="og:description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。">
-<meta property="og:updated_time" content="2015-12-20T07:52:39.000Z">
+<meta property="og:description" content="本文是基于Tomcat 7.0.55版本来配置打印Access Log。
+修改server.xml字啊Tomcat安装目录下conf子目录下的server.xml文件中&amp;lt;host&amp;gt;元素下增加一行配置：
+123&amp;lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;/data/log/tomca">
+<meta property="og:updated_time" content="2015-12-20T07:53:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python之日期函数处理">
-<meta name="twitter:description" content="本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(DateTime和Time）以及日期的字符串表示之间的相互转化，以及日期的增减操作。">
+<meta name="twitter:title" content="Tomcat打印Access Log配置">
+<meta name="twitter:description" content="本文是基于Tomcat 7.0.55版本来配置打印Access Log。
+修改server.xml字啊Tomcat安装目录下conf子目录下的server.xml文件中&amp;lt;host&amp;gt;元素下增加一行配置：
+123&amp;lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;/data/log/tomca">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -54,7 +60,7 @@
   };
 </script>
 
-  <title> Python之日期函数处理 | Think Different </title>
+  <title> Tomcat打印Access Log配置 | Think Different </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -169,7 +175,7 @@
           
           
             
-              Python之日期函数处理
+              Tomcat打印Access Log配置
             
           
         </h1>
@@ -178,8 +184,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-25T16:26:15+08:00" content="2015-10-25">
-            2015-10-25
+          <time itemprop="dateCreated" datetime="2015-11-29T14:46:07+08:00" content="2015-11-29">
+            2015-11-29
           </time>
         </span>
 
@@ -188,8 +194,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Python/" itemprop="url" rel="index">
-                  <span itemprop="name">Python</span>
+                <a href="/categories/Java/" itemprop="url" rel="index">
+                  <span itemprop="name">Java</span>
                 </a>
               </span>
 
@@ -204,8 +210,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/25/python-date-processing/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/25/python-date-processing/" itemprop="commentsCount"></span>
+              <a href="/2015/11/29/tomcat-accesslog-config/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/29/tomcat-accesslog-config/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -219,25 +225,42 @@
       
 
       
-        <span itemprop="articleBody"><p>本篇主要介绍Python的日期的timestamp(毫秒数),日期对象(<code>DateTime</code>和<code>Time</code>）以及日期的字符串表示之间的相互转化，以及日期的增减操作。<br><a id="more"></a><br>主要使用了python原生模块datime中的datetime, timedelta，以及time模块。</p>
-<h1 id="1-timestamp转datetime">1.timestamp转datetime</h1><p>timestamp(毫秒数)转datetime:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_from_timestamp_mills</span><span class="params">(timestamp)</span>:</span></span><br><span class="line">    timestamp_mills = ( timestamp % <span class="number">1000</span> ) * <span class="number">1000</span></span><br><span class="line">    timestamp_seconds = timestamp / <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">    date = datetime.fromtimestamp(timestamp_seconds)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> datetime(date.year, date.month, date.day, date.hour, date.minute, date.second, timestamp_mills)</span><br></pre></td></tr></table></figure>
-<p>timestamp(秒数)转datetime:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_from_timestamp_seconds</span><span class="params">(timestamp)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> datetime.fromtimestamp(timestamp)</span><br></pre></td></tr></table></figure>
-<h1 id="2-datetime转字符串表示">2.datetime转字符串表示</h1><p>datetime转字符串主要是用了datetime的strftime函数。其中格式化的字符串主要有如下：</p>
+        <span itemprop="articleBody"><p>本文是基于Tomcat 7.0.55版本来配置打印Access Log。</p>
+<h1 id="修改server-xml">修改server.xml</h1><p>字啊Tomcat安装目录下conf子目录下的server.xml文件中<code>&lt;host&gt;</code>元素下增加一行配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Valve</span> <span class="attribute">className</span>=<span class="value">"org.apache.catalina.valves.AccessLogValve"</span> <span class="attribute">directory</span>=<span class="value">"/data/log/tomcat"</span></span><br><span class="line">               <span class="attribute">prefix</span>=<span class="value">"access"</span> <span class="attribute">suffix</span>=<span class="value">".log"</span> <span class="attribute">renameOnRotate</span>=<span class="value">"true"</span></span><br><span class="line">               <span class="attribute">pattern</span>=<span class="value">"%t&amp;#9;%a&amp;#9;%A&amp;#9;&amp;quot;%r&amp;quot;&amp;#9;%s&amp;#9;%D&amp;#9;%b&amp;#9;%I"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>其中：</p>
+<ol>
+<li><strong>className</strong>    实现Access Log打印的class名称，按照Tomcat官方文档中说必须是：<code>org.apache.catalina.valves.AccessLogValve</code></li>
+<li><strong>directory</strong> 存放日志文件的目录地址，可以是绝对地址也可以是相对地址。</li>
+<li><strong>prefix</strong> Access Log文件名的前缀，如果不设置，则为<code>access_log.</code></li>
+<li><strong>suffix</strong> Access Log文件名的后缀，如果不设置，则为空字符串””</li>
+<li><strong>renameOnRotate</strong> Access Log文件名默认是带日期格式，例如：access2015-12-17.log。如果设置该参数为true，那么Access Log文件名默认是access.log，日志文件会按照日期自动滚动。该参数默认是false。</li>
+<li><strong>pattern</strong> 用来格式化打印请求和响应的相关信息，注意：其中<code>&amp;#9;</code>代表使用\t来作为分隔符（如果想采用空格作为分隔符，请使用<code>&amp;nbsp;</code>），<code>&amp;quot;</code>代表双引号”。<br>这边只介绍了几个常用的属性，更详细的属性介绍，见文末的<a href="#references">参考</a><br>下面将介绍一下pattern属性的内容.</li>
+</ol>
+<h1 id="pattern属性介绍">pattern属性介绍</h1><p>pattern属性值主要用来定义打印请求和响应的相关信息，例如：请求时间，请求URL，请求者的IP，HTTP状态码，响应时间，返回的字节数等等。</p>
 <ul>
-<li>2015-10-25对应format：%Y-%m-%s </li>
-<li>2015-10-25 20:05:00对应format：%Y-%m-%s %H:%M:%S</li>
+<li><strong>%t</strong> 日志和时间，例如：[20/Dec/2015:00:00:00 +0800]</li>
+<li><strong>%a</strong> 远程IP地址，例如：192.168.1.100</li>
+<li><strong>％A</strong> 本机IP地址，例如：192.168.1.1。注意：使用<code>InetAddress.getLocalHost().getHostAddress();</code>来打印本机的IP，如果在/etc/hosts中配置了<code>127.0.0.1 本机hostname</code>，那么将会打印127.0.0.1。</li>
+<li><strong>％r</strong> HTTP请求的信息，包括：http方法，请求URL，http协议。例如：”GET /hello-web/sayHello HTTP/1.1”</li>
+<li><strong>％s</strong> 响应的HTTP状态码。例如：200，404，502等</li>
+<li><strong>％D</strong> 处理该HTTP请求的时间，单位为毫秒。</li>
+<li><strong>％b</strong> 发送的字节数，不包含HTTP头部大小。如果是0的话，打印”-“。</li>
+<li><strong>%I</strong> 处理当前请求的线程名称，例如：http-nio-8080-exec-475。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">format_date</span><span class="params">(date, format_pattern)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> date.strftime(format_pattern)</span><br></pre></td></tr></table></figure>
-<p>其他的格式字符串可以参见python官方文档：<a href="https://docs.python.org/2/library/datetime.html" target="_blank" rel="external">https://docs.python.org/2/library/datetime.html</a></p>
-<h1 id="3-字符串转datetime">3.字符串转datetime</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_date</span><span class="params">(date_str, format_pattern)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> datetime.strptime(date_str, format_pattern)</span><br></pre></td></tr></table></figure>
-<h1 id="4-datetime转timestamp">4.datetime转timestamp</h1><p>dateime转timestamp(毫秒数): </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取日期中的毫秒数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timestamp_mills_from_date</span><span class="params">(date)</span>:</span></span><br><span class="line">    mills = date.microsecond / <span class="number">1000</span></span><br><span class="line">    <span class="keyword">return</span> long(time.mktime(date.timetuple()) * <span class="number">1000</span>) + mills</span><br></pre></td></tr></table></figure>
-<p>datetime转timestamp(秒数):</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timestamp_secs_from_date</span><span class="params">(date)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> long(time.mktime(date.timetuple()))</span><br></pre></td></tr></table></figure>
-<h1 id="5-使用timedelta来进行日期的增减">5.使用timedelta来进行日期的增减</h1><p>主要使用模块datetime的timedelta模块进行日期的删减，timedelta只支持到最大范围为周的情况。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_add</span><span class="params">(date, weeks=<span class="number">0</span>, days=<span class="number">0</span>, hours=<span class="number">0</span>, minutes=<span class="number">0</span>, seconds=<span class="number">0</span>)</span>:</span></span><br><span class="line">    add_delta = timedelta(days=days, seconds=seconds, minutes=minutes, hours=hours, weeks=weeks)</span><br><span class="line">    <span class="keyword">return</span> date + add_delta</span><br></pre></td></tr></table></figure></p>
-<h1 id="6-其他">6.其他</h1><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line"><span class="type">date</span> = datetime.now()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取日期对应的年份</span></span><br><span class="line"><span class="type">date</span>.<span class="property">year</span></span><br><span class="line"><span class="comment"># 获取日期对应的月份(1-12)</span></span><br><span class="line"><span class="type">date</span>.<span class="property">month</span></span><br><span class="line"><span class="comment"># 获取日期对应的日</span></span><br><span class="line"><span class="type">date</span>.<span class="property">day</span></span><br><span class="line"><span class="comment"># 获取日期对应的小时(0-23)</span></span><br><span class="line"><span class="type">date</span>.hour</span><br><span class="line"><span class="comment"># 获取日期对应的分钟(0-59)</span></span><br><span class="line"><span class="type">date</span>.minute</span><br><span class="line"><span class="comment"># 获取日期对应的秒数(0-59)</span></span><br><span class="line"><span class="type">date</span>.<span class="keyword">second</span></span><br><span class="line"><span class="comment"># 获取日期对应的微秒， 可以通过除以1000来获取毫秒</span></span><br><span class="line"><span class="type">date</span>.microsecond</span><br></pre></td></tr></table></figure>
+<p>也支持打印HTTP headers，cookies，session以及request的属性信息。</p>
+<ul>
+<li><strong>%{xxx}i</strong> 打印request的header信息，其中xxx为header的key，例如：打印User Agent信息采用<code>%{User-Agent}i</code>。</li>
+<li><strong>%{xxx}o</strong> 打印response的header信息，其中xxx为header的key。</li>
+<li><strong>%{xxx}c</strong> 打印cookie的信息，其中xxx为cookie的key</li>
+<li><strong>%{xxx}s</strong> 打印session的信息，其中xxx为session的key。</li>
+</ul>
+<p>这边只只介绍了部分属性，详细内容见官方文档，见文末的<a href="#references">参考</a></p>
+<h1 id="参考"><span id="references">参考</span></h1><ol>
+<li><a href="http://twb.iteye.com/blog/182100" target="_blank" rel="external">http://twb.iteye.com/blog/182100</a></li>
+<li><a href="http://tomcat.apache.org/tomcat-7.0-doc/config/valve.html#Access_Logging" target="_blank" rel="external">http://tomcat.apache.org/tomcat-7.0-doc/config/valve.html#Access_Logging</a></li>
+</ol>
 </span>
       
     </div>
@@ -246,7 +269,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag">#Python</a>
+            <a href="/tags/Tomcat/" rel="tag">#Tomcat</a>
           
         </div>
       
@@ -255,13 +278,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/29/zookeeper-cluster-installation/" rel="prev">CentOS下Zookeeper集群安装部署实践</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/22/supervisor-installation-configuration/" rel="next">Supervisor安装与配置</a>
+              <a href="/2015/11/29/zookeeper-cluster-installation/" rel="next">CentOS下Zookeeper集群安装部署实践</a>
             
           </div>
         </div>
@@ -286,8 +307,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/25/python-date-processing/"
-                   data-title="Python之日期函数处理" data-url="http://elcricwu.github.io/2015/10/25/python-date-processing/">
+              <div class="ds-thread" data-thread-key="2015/11/29/tomcat-accesslog-config/"
+                   data-title="Tomcat打印Access Log配置" data-url="http://elcricwu.github.io/2015/11/29/tomcat-accesslog-config/">
               </div>
             
           </div>
@@ -369,7 +390,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-timestamp转datetime"><span class="nav-number">1.</span> <span class="nav-text">1.timestamp转datetime</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-datetime转字符串表示"><span class="nav-number">2.</span> <span class="nav-text">2.datetime转字符串表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-字符串转datetime"><span class="nav-number">3.</span> <span class="nav-text">3.字符串转datetime</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-datetime转timestamp"><span class="nav-number">4.</span> <span class="nav-text">4.datetime转timestamp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-使用timedelta来进行日期的增减"><span class="nav-number">5.</span> <span class="nav-text">5.使用timedelta来进行日期的增减</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-其他"><span class="nav-number">6.</span> <span class="nav-text">6.其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#修改server-xml"><span class="nav-number">1.</span> <span class="nav-text">修改server.xml</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pattern属性介绍"><span class="nav-number">2.</span> <span class="nav-text">pattern属性介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

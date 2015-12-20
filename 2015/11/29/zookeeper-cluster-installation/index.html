@@ -35,31 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/
-前提条件
-机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。
-请准备3台装有CentOS的机器
-
-安装Zook">
+<meta name="description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS下Zookeeper集群安装部署实践">
 <meta property="og:url" content="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/index.html">
 <meta property="og:site_name" content="Think Different">
-<meta property="og:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/
-前提条件
-机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。
-请准备3台装有CentOS的机器
-
-安装Zook">
-<meta property="og:updated_time" content="2015-11-29T06:05:01.000Z">
+<meta property="og:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/">
+<meta property="og:updated_time" content="2015-12-20T07:52:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS下Zookeeper集群安装部署实践">
-<meta name="twitter:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/
-前提条件
-机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。
-请准备3台装有CentOS的机器
-
-安装Zook">
+<meta name="twitter:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -234,11 +219,12 @@
       
 
       
-        <span itemprop="articleBody"><p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a></p>
+        <span itemprop="articleBody"><p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a><br><a id="more"></a></p>
 <h1 id="前提条件">前提条件</h1><ul>
 <li>机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。</li>
 <li>请准备3台装有CentOS的机器</li>
 </ul>
+<!-- more -->
 <h1 id="安装Zookeeper">安装Zookeeper</h1><h3 id="1-_配置CentOS的hosts。">1. 配置CentOS的hosts。</h3><p>例如：3台CentOS主机的ip分别为192.168.1.101，192.168.1.102，192.168.1.103。修改3台主机的<code>/etc/hosts</code>的配置如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.101</span> zk01</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.102</span> zk02</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.103</span> zk03</span><br></pre></td></tr></table></figure>
 <h3 id="2-_解压zookeeper-3-4-6-tar-gz">2. 解压zookeeper-3.4.6.tar.gz</h3><p>在CentOS机器下创建目录<code>/data/applications</code>，将下载下来的压缩包：zookeeper-3.4.6.tar.gz拷贝到刚创建的目录下，使用<code>tar zxvf zookeeper-3.4.6.tar.gz</code>解压到当前目录下。使用<code>ln -s /data/applications/zookeeper-3.4.6 zookeeper</code>来创建软连接。</p>
@@ -283,6 +269,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/29/tomcat-accesslog-config/" rel="prev">Tomcat打印Access Log配置</a>
             
           </div>
 
@@ -354,21 +342,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
