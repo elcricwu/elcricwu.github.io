@@ -224,7 +224,7 @@
       
         
           <p>本文是基于Tomcat 7.0.55版本来配置打印Access Log。</p>
-<h1 id="修改server-xml">修改server.xml</h1><p>字啊Tomcat安装目录下conf子目录下的server.xml文件中<code>&lt;host&gt;</code>元素下增加一行配置：</p>
+<h1 id="修改server-xml">修改server.xml</h1><p>在Tomcat安装目录下conf子目录下的server.xml文件中<code>&lt;host&gt;</code>元素下增加一行配置：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">Valve</span> <span class="attribute">className</span>=<span class="value">"org.apache.catalina.valves.AccessLogValve"</span> <span class="attribute">directory</span>=<span class="value">"/data/log/tomcat"</span></span><br><span class="line">               <span class="attribute">prefix</span>=<span class="value">"access"</span> <span class="attribute">suffix</span>=<span class="value">".log"</span> <span class="attribute">renameOnRotate</span>=<span class="value">"true"</span></span><br><span class="line">               <span class="attribute">pattern</span>=<span class="value">"%t&amp;#9;%a&amp;#9;%A&amp;#9;&amp;quot;%r&amp;quot;&amp;#9;%s&amp;#9;%D&amp;#9;%b&amp;#9;%I"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/11/29/tomcat-accesslog-config/#more" rel="contents">
