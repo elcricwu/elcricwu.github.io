@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Zookeeper," />
+  <meta name="keywords" content="MongoDB," />
 
 
 
@@ -35,16 +35,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/">
+<meta name="description" content="MongoDB是一个高可用，高性能和自动扩展的开源的分布式面向文档的数据库。
+核心概念文档文档是MongoDB中的数据的基本单元，类似关系型数据库中表中的行。它是由键值对组成的类似JSON格式的数据,例如：
+{&quot;id&quot;: 1, &quot;name&quot;: &quot;test&quot;}
+集合集合由多个文档构成，类似关系听数据库中的表。与表不同的是，集合是无模式的，也就是说集成中可以存放不同格式的文档。集合可以包含子集合，使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS下Zookeeper集群安装部署实践">
-<meta property="og:url" content="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/index.html">
+<meta property="og:title" content="MongoDB简单入门">
+<meta property="og:url" content="http://elcricwu.github.io/2016/04/23/mongodb-simple-guide/index.html">
 <meta property="og:site_name" content="Think Different">
-<meta property="og:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/">
-<meta property="og:updated_time" content="2016-01-04T14:09:21.000Z">
+<meta property="og:description" content="MongoDB是一个高可用，高性能和自动扩展的开源的分布式面向文档的数据库。
+核心概念文档文档是MongoDB中的数据的基本单元，类似关系型数据库中表中的行。它是由键值对组成的类似JSON格式的数据,例如：
+{&quot;id&quot;: 1, &quot;name&quot;: &quot;test&quot;}
+集合集合由多个文档构成，类似关系听数据库中的表。与表不同的是，集合是无模式的，也就是说集成中可以存放不同格式的文档。集合可以包含子集合，使用">
+<meta property="og:updated_time" content="2016-04-23T11:36:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS下Zookeeper集群安装部署实践">
-<meta name="twitter:description" content="本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见官网的解释。Zookeeper下载地址：http://www.apache.org/dyn/closer.cgi/zookeeper/">
+<meta name="twitter:title" content="MongoDB简单入门">
+<meta name="twitter:description" content="MongoDB是一个高可用，高性能和自动扩展的开源的分布式面向文档的数据库。
+核心概念文档文档是MongoDB中的数据的基本单元，类似关系型数据库中表中的行。它是由键值对组成的类似JSON格式的数据,例如：
+{&quot;id&quot;: 1, &quot;name&quot;: &quot;test&quot;}
+集合集合由多个文档构成，类似关系听数据库中的表。与表不同的是，集合是无模式的，也就是说集成中可以存放不同格式的文档。集合可以包含子集合，使用">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -54,7 +63,7 @@
   };
 </script>
 
-  <title> CentOS下Zookeeper集群安装部署实践 | Think Different </title>
+  <title> MongoDB简单入门 | Think Different </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -169,7 +178,7 @@
           
           
             
-              CentOS下Zookeeper集群安装部署实践
+              MongoDB简单入门
             
           
         </h1>
@@ -178,8 +187,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-11-29T14:02:14+08:00" content="2015-11-29">
-            2015-11-29
+          <time itemprop="dateCreated" datetime="2016-04-23T16:37:28+08:00" content="2016-04-23">
+            2016-04-23
           </time>
         </span>
 
@@ -188,8 +197,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Zookeeper/" itemprop="url" rel="index">
-                  <span itemprop="name">Zookeeper</span>
+                <a href="/categories/NoSQL/" itemprop="url" rel="index">
+                  <span itemprop="name">NoSQL</span>
                 </a>
               </span>
 
@@ -204,8 +213,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/29/zookeeper-cluster-installation/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/29/zookeeper-cluster-installation/" itemprop="commentsCount"></span>
+              <a href="/2016/04/23/mongodb-simple-guide/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/23/mongodb-simple-guide/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -219,42 +228,88 @@
       
 
       
-        <span itemprop="articleBody"><p>本文基于Zookeeper的最新版本3.4.6来搭建Zookeeper集群。至于Zookeeper是什么？请参见<a href="zookeeper.apache.com">官网</a>的解释。<br>Zookeeper下载地址：<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/zookeeper/</a><br><a id="more"></a></p>
-<h1 id="前提条件">前提条件</h1><ul>
-<li>机器需安装JDK7.0及其以上版本，如没有请去Oracle官网下载对应操作系统的JDK版本。</li>
-<li>请准备3台装有CentOS的机器</li>
-</ul>
-<!-- more -->
-<h1 id="安装Zookeeper">安装Zookeeper</h1><h3 id="1-_配置CentOS的hosts。">1. 配置CentOS的hosts。</h3><p>例如：3台CentOS主机的ip分别为192.168.1.101，192.168.1.102，192.168.1.103。修改3台主机的<code>/etc/hosts</code>的配置如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.101</span> zk01</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.102</span> zk02</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.103</span> zk03</span><br></pre></td></tr></table></figure>
-<h3 id="2-_解压zookeeper-3-4-6-tar-gz">2. 解压zookeeper-3.4.6.tar.gz</h3><p>在CentOS机器下创建目录<code>/data/applications</code>，将下载下来的压缩包：zookeeper-3.4.6.tar.gz拷贝到刚创建的目录下，使用<code>tar zxvf zookeeper-3.4.6.tar.gz</code>解压到当前目录下。使用<code>ln -s /data/applications/zookeeper-3.4.6 zookeeper</code>来创建软连接。</p>
-<h3 id="3-_配置zookeeper">3. 配置zookeeper</h3><p>将解压出来的zookeeper的conf目录下zoo_sample.cfg文件拷贝zoo.cfg文件。目前已有的配置如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tickTime=<span class="number">2000</span> ＃Zookeeper机器的心跳间隔时间，单位为毫秒数；</span><br><span class="line">initLimit=<span class="number">10</span> ＃Zookeeper的机器初始连接允许的最大时间长度，为tickTime的倍数</span><br><span class="line">syncLimit=<span class="number">5</span> <span class="preprocessor"># Zookeeper的Leader和Follower同步的允许的最大时间长度，为tickTime的倍数</span></span><br><span class="line">dataDir=/data/zookeeper/data <span class="preprocessor"># dataDir存储Zookeeper的内存的snapshot，不要使用/tmp目录</span></span><br><span class="line">clientPort=<span class="number">2181</span> <span class="preprocessor"># 端口号</span></span><br></pre></td></tr></table></figure>
-<p>注意：</p>
-<ul>
-<li>客户端Session最小timeout时间为tickTime的2倍，客户端Session的timeout可以在连接Zookeeper的时候进行指定，该timeout会影响Zookeeper中的临时节点的存活时间。</li>
-<li>如果没有设置dataLogDir，会同时将事务日志也纪录到其中，建议在生产环境中将dataLogDir和dataDir为保证吞吐量和可靠的延迟，建议配置为不同的磁盘设备 </li>
-</ul>
-<p>具体参数的解释请参见：<a href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration" target="_blank" rel="external">http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration</a></p>
-<p>在zoo.cfg文件中增加如下配置：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataLogDir=/data/zookeeper/datalog ＃ 保存事务日志的目录</span><br><span class="line">autopurge.snapRetainCount=<span class="number">15</span> <span class="preprocessor"># 设置保存的事务日志允许的最大数目</span></span><br><span class="line">autopurge.purgeInterval=<span class="number">24</span> <span class="preprocessor"># 自动清除事务日志的时间间隔，单位为小时</span></span><br><span class="line">server<span class="number">.1</span>=zk01:<span class="number">2888</span>:<span class="number">3888</span> </span><br><span class="line">server<span class="number">.2</span>=zk02:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.3</span>=zk03:<span class="number">2888</span>:<span class="number">3888</span></span><br></pre></td></tr></table></figure>
-<p>注意: 一定要设置参数：autopurge.snapRetainCount和autopurge.purgeInterval，否则，对应dataLogDir的日志很容易就塞满整个磁盘。<br>在各台主机下的dataDir配置的目录下使用命令<code>echo &quot;1&quot; &gt; myid</code>来创建myid文件。主机zk01使用<code>echo &quot;1&quot;&gt;myid</code>，主机zk02使用<code>echo &quot;2&quot;&gt; myid</code>，主机zk03使用<code>echo &quot;3&quot; &gt; myid</code>。</p>
-<h3 id="4-_优化Zookeeper的JVM参数">4. 优化Zookeeper的JVM参数</h3><p>使用vim命令修改Zookeeper安装目录子目录bin下的zkEnv.sh文件，在最下方增加一行：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">JVMFLAGS=<span class="value"><span class="string">"-Xms4096m -Xmx4096m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled"</span></span></span></span><br></pre></td></tr></table></figure>
-<p>修改JVM的最小堆，最大堆，新生代，老年代的GC算法等。</p>
-<h1 id="启动Zookeeper">启动Zookeeper</h1><p>在配置完上述内容后，就可以在Zookeeper安装目录下使用</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zkServer<span class="class">.sh</span> start</span><br></pre></td></tr></table></figure>
-<p>来启动Zookeeper。到此，整个Zookeeper的集群安装部署就完成了。</p>
-<h1 id="验证Zookeeper">验证Zookeeper</h1><p>使用Zookeeper安装目录下<code>bin/zkServer.sh status</code>来检验Zookeeper服务器的状态。</p>
-<h1 id="参考">参考</h1><ol>
-<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperInternals.html</a></li>
-<li><a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq" target="_blank" rel="external">http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_systemReq</a></li>
-<li><a href="http://blog.csdn.net/shirdrn/article/details/7183503" target="_blank" rel="external">http://blog.csdn.net/shirdrn/article/details/7183503</a></li>
-<li><a href="http://blog.chinaunix.net/uid-26275986-id-3957283.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-26275986-id-3957283.html</a></li>
-<li><a href="http://blog.csdn.net/gobitan/article/details/8659175" target="_blank" rel="external">http://blog.csdn.net/gobitan/article/details/8659175</a></li>
-<li><a href="http://www.cnblogs.com/sharpxiajun/p/3294581.html" target="_blank" rel="external">http://www.cnblogs.com/sharpxiajun/p/3294581.html</a></li>
+        <span itemprop="articleBody"><p>MongoDB是一个高可用，高性能和自动扩展的开源的分布式面向文档的数据库。</p>
+<h2 id="核心概念">核心概念</h2><h3 id="文档">文档</h3><p>文档是MongoDB中的数据的基本单元，类似关系型数据库中表中的行。它是由键值对组成的类似JSON格式的数据,例如：</p>
+<pre><code>{"<span class="attribute">id</span>": <span class="value"><span class="number">1</span></span>, "<span class="attribute">name</span>": <span class="value"><span class="string">"test"</span></span>}
+</code></pre><h3 id="集合">集合</h3><p>集合由多个文档构成，类似关系听数据库中的表。与表不同的是，集合是无模式的，也就是说集成中可以存放不同格式的文档。<br>集合可以包含子集合，使用“.”字符来划分子集合。</p>
+<h3 id="数据库">数据库</h3><p>多个集合可以组成一个独立的数据库，类似关系型数据库中的schema。一个MongoDB实例可以包含多个数据库，与关系型数据库类似。</p>
+<a id="more"></a>
+<h2 id="支持的数据类型">支持的数据类型</h2><p>MongoDB支持如下数据类型：</p>
+<ol>
+<li>String, UTF-8的字符串</li>
+<li>Integer, 32位和64位整数</li>
+<li>Boolean, 布尔值，true或者false</li>
+<li>Double, 64为浮点数</li>
+<li>Arrays, 数组</li>
+<li>Timestamp，时间戳</li>
+<li>Object，内嵌文档对象</li>
+<li>null，空值</li>
+<li>Symbol，符号类型</li>
+<li>Object ID，对象ID，12字节的唯一ID</li>
+<li>Binary Data，二进制数据</li>
+<li>Code，代码类型，可以包含JavaScript代码</li>
+<li>Regular Expression，正则表达式类型，JavaScript的正则语法</li>
 </ol>
-</span>
+<h2 id="安装MongoDB">安装MongoDB</h2><p>在Mac下使用brew来安装MongoDB。命令如下：</p>
+<pre><code><span class="keyword">brew </span>install mongodb
+</code></pre><p>如果是其他操作系统，参见<a href="https://www.mongodb.org" target="_blank" rel="external">官方网站</a>的<a href="https://docs.mongodb.org/manual/installation/" target="_blank" rel="external">安装</a></p>
+<p>启动MongoDB实例之前，请先创建MongoDB默认的数据库数据存放目录：<code>/data/db</code>，并确认是否有读写权限。然后直接运行<code>mongod</code>来启动MongoDB。如果成功启动，将会看到如下信息：</p>
+<pre><code><span class="number">2016</span>-<span class="number">04</span>-<span class="number">23</span>T17:<span class="number">29</span>:<span class="number">32.610</span>+<span class="number">0800</span> I NETWORK  [initandlisten] waiting <span class="keyword">for</span> connections on port <span class="number">27017</span>
+</code></pre><h2 id="基本操作">基本操作</h2><p>通过MongoDB Shell来连接MongoDB实例执行管理操作。使用如下命令<code>mongo</code>来连接本地启动的数据库。如果需要连接远程的MongoDB实例，需要使用</p>
+<pre><code>mongo mongodb://{username}:{password}@{ip:port}/{db}
+</code></pre><p>的格式来连接，其中username为用户名，password为密码，ip为远程主机的IP，port为MongoDB的连接端口，db为要连接的数据库。</p>
+<h3 id="数据库管理">数据库管理</h3><h5 id="查看当前MongoDB实例中的数据库">查看当前MongoDB实例中的数据库</h5><pre><code><span class="title">show</span> dbs
+</code></pre><h5 id="创建数据库">创建数据库</h5><p>如果该数据库不存在，则创建数据库；如果该数据库存在，则切换数据库。命令如下：</p>
+<pre><code><span class="operator"><span class="keyword">use</span> <span class="keyword">test</span></span>
+</code></pre><h5 id="删除数据库">删除数据库</h5><p>先使用<code>use</code>命令切换到要删除的数据库下，使用如下命令来删除：</p>
+<pre><code>db.<span class="function"><span class="title">dropDatabase</span><span class="params">()</span></span>
+</code></pre><h3 id="文档的增删改查">文档的增删改查</h3><h5 id="创建文档">创建文档</h5><p>使用如下命令来创建文档：</p>
+<pre><code>db<span class="class">.collection</span><span class="class">.insert</span>(document)
+</code></pre><p>其中collection为集合的名称，document为json格式的字符串。例如给blog创建一个post信息：</p>
+<pre><code>db.blog.<span class="keyword">insert</span>({
+<span class="string">"title"</span>: <span class="string">"MongoDB简单入门"</span>
+, <span class="string">"author"</span>: <span class="string">"Circle Wu"</span>
+, <span class="string">"content"</span>: <span class="string">"blog content"</span>
+})
+</code></pre><p>那么就在blog集合中创建一个文档。</p>
+<h5 id="删除文档">删除文档</h5><p>使用如下命令来删除文档：</p>
+<pre><code>db<span class="class">.collection</span><span class="class">.remove</span>(query)
+</code></pre><p>其中collection为集合名称，query为删除文档的条件，例如：<code>{&quot;autor&quot;: &quot;Circle Wu&quot;}</code>。例如删除上面创建的文档：</p>
+<pre><code>db.blog.<span class="keyword">remove</span>({<span class="string">"autor"</span>: <span class="string">"Circle Wu"</span>})
+</code></pre><h5 id="更新文档">更新文档</h5><p>使用如下命令来更新文档：</p>
+<pre><code><span class="keyword">db</span>.collection.<span class="keyword">update</span>(<span class="keyword">query</span>, document)
+</code></pre><p>例如更新上面创建的文档：</p>
+<pre><code>db.blog.<span class="keyword">update</span>({<span class="string">"title"</span>: <span class="string">"MongoDB简单入门"</span>}, {
+    <span class="string">"title"</span>: <span class="string">"MongoDB简单入门"</span>
+    , <span class="string">"author"</span>: <span class="string">"Circle Wu"</span>
+    , <span class="string">"Content"</span>: <span class="string">"Long Long ago"</span>
+})
+</code></pre><h5 id="查询文档">查询文档</h5><p>使用如下命令来查询文档：</p>
+<pre><code>db<span class="class">.collection</span><span class="class">.findOne</span>(query)
+db<span class="class">.collection</span><span class="class">.find</span>(query)
+</code></pre><p>findOne只返回query限定条件的一个结果，find返回全部结果。例如查询上面创建的文档：</p>
+<pre><code>db<span class="class">.blog</span><span class="class">.find</span>()
+</code></pre><h5 id="条件语句">条件语句</h5><p><strong>等于</strong></p>
+<pre><code>{&lt;key&gt;<span class="symbol">:&lt;value&gt;</span>}
+</code></pre><p><strong>小于</strong></p>
+<pre><code>{&lt;key&gt;:{<span class="variable">$lt</span>:&lt;value&gt;}}
+</code></pre><p><strong>小于或等于</strong></p>
+<pre><code>{&lt;key&gt;:{<span class="variable">$lte</span>:&lt;value&gt;}}
+</code></pre><p><strong>大于</strong></p>
+<pre><code>{&lt;key&gt;:{<span class="variable">$gt</span>:&lt;value&gt;}}
+</code></pre><p><strong>大于或等于</strong></p>
+<pre><code>{&lt;key&gt;:{<span class="variable">$gte</span>:&lt;value&gt;}}
+</code></pre><p><strong>不等于</strong></p>
+<pre><code>{&lt;key&gt;:{<span class="variable">$ne</span>:&lt;value&gt;}}
+</code></pre><p><strong>and</strong></p>
+<pre><code>{&lt;key1&gt;<span class="symbol">:&lt;value1&gt;</span>, &lt;key2&gt;<span class="symbol">:&lt;value2&gt;</span>}
+</code></pre><p><strong>or</strong></p>
+<pre><code>{<span class="variable">$or</span>: [{key1: value1}, {key2:value2}]}
+</code></pre><h2 id="查看帮助">查看帮助</h2><h3 id="数据库级别的帮助命令">数据库级别的帮助命令</h3><p>直接使用help命令来查看数据库级别的帮助命令</p>
+<pre><code><span class="built_in">help</span>
+</code></pre><h3 id="集合级别的帮助命令">集合级别的帮助命令</h3><p>使用如下命令来查看集合级别的帮助命令：</p>
+<pre><code>db<span class="class">.collection</span><span class="class">.help</span>()
+</code></pre></span>
       
     </div>
 
@@ -262,7 +317,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Zookeeper/" rel="tag">#Zookeeper</a>
+            <a href="/tags/MongoDB/" rel="tag">#MongoDB</a>
           
         </div>
       
@@ -271,13 +326,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/29/tomcat-accesslog-config/" rel="prev">Tomcat打印Access Log配置</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/25/python-date-processing/" rel="next">Python之日期函数处理</a>
+              <a href="/2015/11/29/tomcat-accesslog-config/" rel="next">Tomcat打印Access Log配置</a>
             
           </div>
         </div>
@@ -302,8 +355,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/11/29/zookeeper-cluster-installation/"
-                   data-title="CentOS下Zookeeper集群安装部署实践" data-url="http://elcricwu.github.io/2015/11/29/zookeeper-cluster-installation/">
+              <div class="ds-thread" data-thread-key="2016/04/23/mongodb-simple-guide/"
+                   data-title="MongoDB简单入门" data-url="http://elcricwu.github.io/2016/04/23/mongodb-simple-guide/">
               </div>
             
           </div>
@@ -385,7 +438,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前提条件"><span class="nav-number">1.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Zookeeper"><span class="nav-number">2.</span> <span class="nav-text">安装Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_配置CentOS的hosts。"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 配置CentOS的hosts。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_解压zookeeper-3-4-6-tar-gz"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 解压zookeeper-3.4.6.tar.gz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_配置zookeeper"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. 配置zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-_优化Zookeeper的JVM参数"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. 优化Zookeeper的JVM参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">启动Zookeeper</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证Zookeeper"><span class="nav-number">4.</span> <span class="nav-text">验证Zookeeper</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心概念"><span class="nav-number">1.</span> <span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档"><span class="nav-number">1.1.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合"><span class="nav-number">1.2.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">1.3.</span> <span class="nav-text">数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持的数据类型"><span class="nav-number">2.</span> <span class="nav-text">支持的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装MongoDB"><span class="nav-number">3.</span> <span class="nav-text">安装MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">4.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库管理"><span class="nav-number">4.1.</span> <span class="nav-text">数据库管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看当前MongoDB实例中的数据库"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">查看当前MongoDB实例中的数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建数据库"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除数据库"><span class="nav-number">4.1.0.3.</span> <span class="nav-text">删除数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档的增删改查"><span class="nav-number">4.2.</span> <span class="nav-text">文档的增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建文档"><span class="nav-number">4.2.0.1.</span> <span class="nav-text">创建文档</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除文档"><span class="nav-number">4.2.0.2.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新文档"><span class="nav-number">4.2.0.3.</span> <span class="nav-text">更新文档</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询文档"><span class="nav-number">4.2.0.4.</span> <span class="nav-text">查询文档</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件语句"><span class="nav-number">4.2.0.5.</span> <span class="nav-text">条件语句</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看帮助"><span class="nav-number">5.</span> <span class="nav-text">查看帮助</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库级别的帮助命令"><span class="nav-number">5.1.</span> <span class="nav-text">数据库级别的帮助命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合级别的帮助命令"><span class="nav-number">5.2.</span> <span class="nav-text">集合级别的帮助命令</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
